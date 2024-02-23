@@ -112,7 +112,7 @@ export default function Page() {
           content="upgrade-insecure-requests"
         ></meta>
       </Head>
-      <div className="min-h-screen w-full bg-AAprimary text-white 2xl:px-64 xl:px-44 lg:px-24 md:px-16 px-4 ">
+      <div className="min-h-screen w-full bg-white text-white 2xl:px-64 xl:px-44 lg:px-24 md:px-16 px-4 ">
         <div className="h-full w-full  py-16 sm:px-12">
           {/* // ? Ip Address, (Latitude & Longitude) ==> only > md */}
           <div className="w-full pb-6 flex md:flex-row flex-col space-y-4 justify-around items-center">

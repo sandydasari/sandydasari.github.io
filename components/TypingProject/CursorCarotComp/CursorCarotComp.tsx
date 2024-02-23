@@ -7,7 +7,7 @@ export default function CursorCarotComp() {
       transition={{
         opacity: { duration: 0.8, repeat: Infinity },
       }}
-      className="absolute left-0 w-[3px] lg:h-8 sm:bottom-0 top-1 sm:h-5 h-4 rounded bg-AAsecondary "
+      className="absolute left-0 w-[3px] lg:h-8 sm:bottom-0 top-1 sm:h-5 h-4 rounded bg-yellow "
     ></motion.span>
   )
 }

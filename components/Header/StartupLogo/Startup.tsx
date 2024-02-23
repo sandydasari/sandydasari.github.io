@@ -43,7 +43,7 @@ const Startup = (props) => {
             rotate: { delay: 0.5, duration: 0.5 },
             x: { delay: 0.8, duration: 1 },
           }}
-          className="absolute h-2 w-12 bg-AAsecondary rounded "
+          className="absolute h-2 w-12 bg-yellow rounded "
         ></motion.div>
         <motion.div
           initial={{ scale: 0, x: 0 }}
@@ -53,7 +53,7 @@ const Startup = (props) => {
             rotate: { delay: 0.5, duration: 0.5 },
             x: { delay: 0.8, duration: 1 },
           }}
-          className="absolute h-2 w-12 bg-AAsecondary rounded "
+          className="absolute h-2 w-12 bg-yellow rounded "
         ></motion.div>
         <motion.div
           initial={{ opacity: 0, scale: 0, x: 0, y: 0 }}
@@ -65,7 +65,7 @@ const Startup = (props) => {
             y: { delay: 1.2, duration: 2 },
             x: { delay: 1.5, duration: 0.5 },
           }}
-          className="absolute h-2 w-12 bg-AAsecondary rounded "
+          className="absolute h-2 w-12 bg-yellow rounded "
         ></motion.div>
         <motion.div
           initial={{ opacity: 0, scale: 0, x: 0, y: 0 }}
@@ -77,7 +77,7 @@ const Startup = (props) => {
             y: { delay: 1.2, duration: 2 },
             x: { delay: 1.5, duration: 0.5 },
           }}
-          className="absolute h-2 w-12 bg-AAsecondary rounded "
+          className="absolute h-2 w-12 bg-yellow rounded "
         ></motion.div>
         <motion.div
           initial={{ opacity: 0, scale: 0, x: 0, y: 0 }}
@@ -89,7 +89,7 @@ const Startup = (props) => {
             y: { delay: 1.2, duration: 2 },
             x: { delay: 1.5, duration: 0.5 },
           }}
-          className="absolute h-2 w-12 bg-AAsecondary rounded "
+          className="absolute h-2 w-12 bg-yellow rounded "
         ></motion.div>
         <motion.div
           initial={{ opacity: 0, scale: 0, x: 0, y: 0 }}
@@ -101,7 +101,7 @@ const Startup = (props) => {
             y: { delay: 1.2, duration: 2 },
             x: { delay: 1.5, duration: 0.5 },
           }}
-          className="absolute h-2 w-12 bg-AAsecondary rounded "
+          className="absolute h-2 w-12 bg-yellow rounded "
         ></motion.div>
         <motion.span
           initial={{ scale: 0, y: -4 ,x:-1}}

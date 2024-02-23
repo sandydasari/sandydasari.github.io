@@ -142,7 +142,7 @@ export default function Home() {
 
   return (
     <div
-      className={` bg-AAprimary min-h-screen  w-full flex flex-col justify-center items-center ${
+      className={` bg-white min-h-screen  w-full flex flex-col justify-center items-center ${
         isFinished ? "pt-48" : ""
       }`}
     >
@@ -157,7 +157,7 @@ export default function Home() {
                     setInputLostFocus(false);
                   }}
                   ref={absoluteTextINputRef}
-                  className="absolute w-full z-10 bg-AAprimary opacity-90 rounded border-[0.5px] border-gray-700 flex justify-center items-center
+                  className="absolute w-full z-10 bg-white opacity-90 rounded border-[0.5px] border-gray-700 flex justify-center items-center
                           hover:cursor-pointer"
                 >
                   <span className="text-gray-400 font-mono">Click to continue..</span>
@@ -233,7 +233,7 @@ export default function Home() {
                   // className="w-52 bg-AAprimary text-xl text-center text-gray-600 border-b-2 border-b-gray-600
                   //           py-2 px-4 focus:outline-none "
 
-                  className="w-0 h-0 bg-AAprimary text-xl text-center text-gray-600  border-b-gray-600
+                  className="w-0 h-0 bg-white text-xl text-center text-gray-600  border-b-gray-600
                   py-2 px-4 focus:outline-none "
                   
                   onChange={e => {

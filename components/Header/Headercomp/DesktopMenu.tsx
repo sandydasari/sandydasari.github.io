@@ -106,7 +106,7 @@ export default function DesktopMenu(props: { finishedLoading: boolean }) {
           delay: props.finishedLoading ? 0 : 10.2,
         }}
         // onClick={()=>{router.push("/resume_03022024.pdf")}}
-        className="text-AAsecondary border border-spacing-2 py-2 px-3 rounded-sm border-AAsecondary hover:bg-ResumeButtonHover"
+        className="text-AAsecondary border border-spacing-2 py-2 px-3 rounded-sm border-white hover:bg-ResumeButtonHover"
       >
         Resume
       </motion.button>

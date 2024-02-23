@@ -111,7 +111,7 @@ const CompaniesBar = props => {
         <motion.div
           animate={{ y: barPosition }}
           // ref={barRef}
-          className={`absolute w-10 h-0.5 md:w-0.5 md:h-10 rounded bg-AAsecondary `}
+          className={`absolute w-10 h-0.5 md:w-0.5 md:h-10 rounded bg-yellow `}
         ></motion.div>
       </div>
       {/* // ? Companies name as buttons */}
@@ -182,7 +182,7 @@ const CompaniesBar = props => {
           />
         </div>
         <div className="block md:hidden h-0.5 rounded bg-gray-500">
-          <motion.div animate={{ x: barAbovePosition }} className="w-[128px] h-0.5 rounded bg-AAsecondary"></motion.div>
+          <motion.div animate={{ x: barAbovePosition }} className="w-[128px] h-0.5 rounded bg-yellow"></motion.div>
         </div>
       </div>
     </div>
