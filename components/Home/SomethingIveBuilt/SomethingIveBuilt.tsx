@@ -44,7 +44,7 @@ export default function SomethingIveBuilt() {
                 ></div>
               </Link> */}
 
-              <a href="https://www.ens.vision" target={"_blank"} rel="noreferrer">
+              <a href="https://github.com/sandydasari/AnsysAPDL_python" target={"_blank"} rel="noreferrer">
                 <div
                   // onClick={}
                   className="absolute w-full h-full rounded bg-AAprimary 
@@ -52,7 +52,7 @@ export default function SomethingIveBuilt() {
                 ></div>
               </a>
 
-              <Img src={"/ensvision.jpg"} alt={"Project Screen shot"} className={`w-full rounded h-full `} />
+              <Img src={"/axial_comp.jpg"} alt={"Project Screen shot"} className={`w-full rounded h-full `} />
             </div>
           </div>
 
@@ -63,7 +63,7 @@ export default function SomethingIveBuilt() {
               <div className="relative w-full h-full">
                 <div className="absolute w-full h-full bg-yellow opacity-10 z-10"></div>
                 <div className="absolute w-full h-full bg-AAprimary opacity-80 z-10"></div>
-                <Img src={"/ensvision.jpg"} alt={"Project Screen shot"} className={`w-full h-full `} />
+                <Img src={"/axial_comp.jpg"} alt={"Project Screen shot"} className={`w-full h-full `} />
               </div>
             </div>
 
@@ -130,7 +130,7 @@ export default function SomethingIveBuilt() {
            transition-opacity opacity-50 hover:opacity-0 hover:cursor-pointer duration-300"
                 ></div>
               </a>
-              <Img src={"/img/YPredict-v1.jpg"} alt={"Project Screen shot"} className={`w-full rounded h-full `} />
+              <Img src={"/img/kafka-project-1.png"} alt={"Project Screen shot"} className={`w-full rounded h-full `} />
             </div>
           </div>
 
@@ -151,7 +151,7 @@ export default function SomethingIveBuilt() {
             >
               <div className="flex flex-col space-y-1  z-10">
                 <span className="text-AAsecondary text-base">Recent Project</span>
-                <a href="https://ypredict.ai/" target="_blank" rel="noopener noreferrer">
+                <a href="https://github.com/sandydasari/kafka-project1" target="_blank" rel="noopener noreferrer">
                   <span className=" md:text-gray-200 text-AAsecondary font-bold text-xl hover:cursor-pointer">
                     YPredict - v1
                   </span>
@@ -159,23 +159,21 @@ export default function SomethingIveBuilt() {
               </div>
               <div className="w-full md:bg-AAtertiary rounded-md py-6 md:p-6  z-10">
                 <p className="text-gray-300 md:text-gray-400 text-left ">
-                  I had the opportunity to lead the development of a token project, which aimed to create a
-                  decentralized ecosystem for peer-to-peer transactions. Overseeing the planning and development of the
-                  project, including the <span className="text-AAsecondary"> design</span> and implementation of the{" "}
-                  <span className="text-AAsecondary"> smart contract</span> and{" "}
-                  <span className="text-AAsecondary"> blockchain technology</span>. Here i share with you{" "}
-                  <span className="text-AAsecondary"> YPredict - v1 </span> for the private sale.
+                  Using <span className="text-AAsecondary"> confluent Kafka</span>confluent Kafka, I've set up a smooth pipeline for streaming bidding data directly from my <span className="text-AAsecondary"> Python Flask website</span>. 
+                  Through the utilization of <span className="text-AAsecondary"> design</span>parallel consumer processes, I efficiently fetch and store this data into a MySQL database. 
+                  For insightful visualization, I've developed a comprehensive dashboard using the <span className="text-AAsecondary"> Power BI tool</span>. 
+                  Additionally, I've chosen to <span className="text-AAsecondary"> host my MySQL</span> database on aiven.io for seamless accessibility and management.
                 </p>
               </div>
               <ul
                 className="flex flex-wrap w-full text-gray-300 md:text-gray-400
                text-sm font-Text2 md:justify-start"
               >
-                <span className="pr-4 z-10">Token</span>
-                <span className="pr-4 z-10">ERC20</span>
-                <span className="pr-4 z-10">Nextjs</span>
-                <span className="pr-4 z-10">Smart contract</span>
-                <span className="pr-4 z-10">Blockchain</span>
+                <span className="pr-4 z-10">kafka</span>
+                <span className="pr-4 z-10">python</span>
+                <span className="pr-4 z-10">power bi</span>
+                <span className="pr-4 z-10">mysql hosting</span>
+                <span className="pr-4 z-10">Flask</span>
               </ul>
               <div className="z-10 flex fle-row space-x-5 ">
                 <GithubIcon link="https://github.com/sandydasari/Ypredict" />
