@@ -12,7 +12,7 @@ const ClickableIcon = props => {
 };
 const IconsData = [
   { href: "https://github.com/sandydasari", Icon: GithubIcon },
-  { href: "https://www.linkedin.com/in/sandydasari/", Icon: LinkedinIcon },
+  { href: "https://www.linkedin.com/in/dasari-sandhya-rani/", Icon: LinkedinIcon },
  
   
 ];

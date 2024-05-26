@@ -52,9 +52,12 @@ export default function MyName(props: { finishedLoading: boolean }) {
         }}
         className="text-gray-400 font-Header text-sm md:text-lg sm:text-md mt-10 tracking-wider"
         >
-        I&apos;m a <span className="text-AAsecondary">software engineer</span>, proficient in Pega, .NET, DevOps, and passionate about data science.<br className="2xl:block hidden" /> 
+        I&apos;m a <span className="text-AAsecondary">Golang Developer</span>, proficient in Go, Pega, .NET, DevOps, and passionate about data science.<br className="2xl:block hidden" /> 
+        I specialize in developing scalable applications using <span className="text-AAsecondary">Golang</span> and microservices architecture, as well as optimizing business processes and crafting robust web applications with <span className="text-AAsecondary">.NET</span>, <span className="text-AAsecondary">C#</span>, and <span className="text-AAsecondary">SQL Server</span>.
+        <br className="2xl:block hidden" />   
+        {/* I&apos;m a <span className="text-AAsecondary">software engineer</span>, proficient in Pega, .NET, DevOps, and passionate about data science.<br className="2xl:block hidden" /> 
         I specialize in optimizing business processes and crafting robust web applications with <span className="text-AAsecondary">.NET</span>, <span className="text-AAsecondary">C#</span>, and <span className="text-AAsecondary">SQL Server</span>.
-        <br className="2xl:block hidden" />  
+        <br className="2xl:block hidden" />   */}
         {"Let's connect and explore how my diverse skill set can elevate your projects!"}
         {/* i possess strong problem-solving skills and
         specialize in crafting exceptional 

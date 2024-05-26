@@ -36,14 +36,38 @@ export default function AboutMe(props) {
             </div>
             <div className="font-Header ">
               <span className="text-gray-400 ">
-              In my role at ANZ Operations and Technology, I bring proficiency in <span className="text-AAsecondary">Pega</span> and 
+              In my role at ANZ Operations and Technology, I bring proficiency as a <span className="text-AAsecondary">Golang developer</span> in microservices architecture and Kafka integration. 
+              Adept in developing robust, scalable, and efficient solutions. Proven expertise 
+              as a <span className="text-AAsecondary">Pega</span> developer with extensive 
+              knowledge in <span className="text-AAsecondary">.NET</span> solutions, delivering 
+              high-quality software to meet diverse client requirements. Currently working on 
+              optimizing business processes and delivering robust web applications at ANZ 
+              Operations and Technology. Certified as a Pega Robotics System Architect. As a 
+              <span className="text-AAsecondary">DevOps Engineer</span>, I automate software 
+              delivery through <span className="text-AAsecondary">CI/CD pipelines</span> and 
+              orchestrate <span className="text-AAsecondary">Docker</span> and 
+              <span className="text-AAsecondary">Kubernetes</span>. In my 
+              <span className="text-AAsecondary">ML & Big Data Analytics Internship</span> 
+              at ThoughtWorks, I excelled in medical data extraction through OCR and developed 
+              a Label Studio API. Collaborating with KCDH, IITB, during my DL Internship at 
+              BAHMNI Open Source EMR, I enhanced the <span className="text-AAsecondary">
+              layoutLM model</span> and achieved an 80% accuracy with the FUNSD dataset. My 
+              ongoing research aims for paper publication at the 
+              <span className="text-AAsecondary">17th ACM International Conference, WSDM’24</span> 
+              and continuous learning drives me to make a positive impact and advance technology. 
+              Additionally, I developed a scalable e-commerce platform using Golang and microservices 
+              architecture, implemented Kafka for asynchronous communication between services, 
+              and deployed services using Docker and Kubernetes on AWS.
+{/*               
+              
+              bring proficiency in <span className="text-AAsecondary">Pega</span> and 
               <span className="text-AAsecondary">.NET</span>, specializing in optimizing business processes and delivering robust web applications. 
               Certified as a Pega Robotics System Architect. As a <span className="text-AAsecondary">DevOps Engineer</span>, 
               I automate software delivery through <span className="text-AAsecondary">CI/CD pipelines</span> and orchestrate <span className="text-AAsecondary">Docker</span> and <span className="text-AAsecondary">Kubernetes</span>. 
               In my <span className="text-AAsecondary">ML & Big Data Analytics Internship</span>  at ThoughtWorks, I excelled in medical data extraction through OCR and developed a Label Studio API. 
               Collaborating with KCDH, IITB, during my DL Internship at BAHMNI Open Source EMR, I enhanced the <span className="text-AAsecondary">layoutLM model</span> and achieved an 80% accuracy with FUNSD dataset. 
               My ongoing research aims for paper publication at the <span className="text-AAsecondary">16th ACM International Conference, WSDM’23</span>
-               and continuous learning drives me to make a positive impact and advance technology.
+               and continuous learning drives me to make a positive impact and advance technology. */}
               </span>
             </div>
             {/* <div className="font-Header tracking-wide">

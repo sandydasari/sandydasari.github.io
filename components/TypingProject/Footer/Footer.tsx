@@ -26,17 +26,17 @@ export default function Fotter(props:{link:string,className:string}) {
             Icon={GithubIcon}
           />
           <ClickableIcon
-            href={"https://www.linkedin.com/in/sandydasari/"}
+            href={"https://www.linkedin.com/in/dasari-sandhya-rani/"}
             Icon={LinkedinIcon}
           />
-          <ClickableIcon
+          {/* <ClickableIcon
             href={"https://www.instagram.com/titof_abdo/"}
             Icon={InstagramIcon}
           />
           <ClickableIcon
             href={"https://www.youtube.com/c/NTTFT"}
             Icon={YoutubeIcon}
-          />
+          /> */}
         </div>
         <a href={props.link} className="" target={"_blank"} rel="noreferrer">
           <div

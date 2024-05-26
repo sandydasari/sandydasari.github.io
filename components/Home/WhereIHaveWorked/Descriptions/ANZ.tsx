@@ -5,6 +5,10 @@ import { getTasksTextWithHighlightedKeyword } from "./taskAndType";
 export default function ANZ () {
   const tasks = [
     {
+      "text": "Developed a scalable banking platform using Golang and microservices architecture,Implemented Kafka for asynchronous communication between services.",
+      "keywords": ["Golang", "microservices", "banking","Kafka", "asynchronous communication"]
+    },
+    {
       text: "Proficient in Pega and .NET, specializing in optimizing business processes and delivering robust web applications with ASP.NET, C#,and SQL Server",
       keywords: ["Pega", ".NET", "ASP.NET", "C#", "SQL Server"],
     },
@@ -13,12 +17,8 @@ export default function ANZ () {
       keywords: ["Pega Robotics System Architect", "Pega development"],
     },
     {
-      text: "Currently serving as a DevOps Engineer, automating and streamlining the software delivery process.",
-      keywords: ["DevOps Engineer"],
-    },
-    {
-      text: "Established and managed CI/CD pipelines with Jenkins, GitLab CI, and Azure DevOps, while orchestrating Docker and Kubernetes for scalable and efficient application deployment.",
-      keywords: ["CI/CD pipelines", "Jenkins","Gitlab CI", "Azure DevOps","Docker","Kubernetes"],
+      text: "Established and managed CI/CD pipelines with Codefresh, GitLab CI, and Azure DevOps, while orchestrating Docker and Kubernetes for scalable and efficient application deployment.",
+      keywords: ["CI/CD pipelines", "Codefresh","Gitlab CI", "Azure DevOps","Docker","Kubernetes"],
     },
   ];
 
@@ -28,7 +28,7 @@ export default function ANZ () {
         <div className="flex flex-col spacey-y-2">
           {/* Title */}
           <span className="text-gray-100 sm:text-lg text-sm font-Arimo tracking-wide">
-            Software Engineer <span className="text-AAsecondary">@ DevOps</span>
+            Software Engineer <span className="text-AAsecondary">@ Golang Developer</span>
           </span>
           {/* Date */}
           <span className="font-mono text-xs text-gray-500">Jun 2023 - Present</span>
