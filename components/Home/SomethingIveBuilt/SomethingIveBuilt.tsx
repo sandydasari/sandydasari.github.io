@@ -124,7 +124,7 @@ export default function SomethingIveBuilt() {
           absolute md:grid grid-cols-12 w-full h-full  content-center "
           >
             <div className="relative rounded w-full h-full col-start-6 col-span-7 ">
-              <a href={"https://ubiquitous-bublanina-da84ec.netlify.app/"} target="_blank" rel="noreferrer">
+              <a href={"https://github.com/sandydasari/kafka-project1"} target="_blank" rel="noreferrer">
                 <div
                   className="absolute w-full h-full rounded bg-AAprimary 
            transition-opacity opacity-50 hover:opacity-0 hover:cursor-pointer duration-300"
@@ -177,7 +177,7 @@ export default function SomethingIveBuilt() {
               </ul>
               <div className="z-10 flex fle-row space-x-5 ">
                 <GithubIcon link="https://github.com/sandydasari/Ypredict" />
-                <a href="https://ubiquitous-bublanina-da84ec.netlify.app/" target={"_blank"} rel="noreferrer">
+                <a href="https://github.com/sandydasari/kafka-project1" target={"_blank"} rel="noreferrer">
                   <ExternalLink url={""} router={router} />
                 </a>
               </div>
