@@ -159,11 +159,11 @@ export default function SomethingIveBuilt() {
               </div>
               <div className="w-full md:bg-AAtertiary rounded-md py-6 md:p-6  z-10">
                 <p className="text-gray-300 md:text-gray-400 text-left ">
-                  Using <span className="text-AAsecondary"> confluent Kafka</span>confluent Kafka, I've set up a smooth pipeline for streaming bidding data directly from my <span className="text-AAsecondary"> Python Flask website</span>. 
-                  Through the utilization of <span className="text-AAsecondary"> design</span>parallel consumer processes, I efficiently fetch and store this data into a MySQL database. 
-                  For insightful visualization, I've developed a comprehensive dashboard using the <span className="text-AAsecondary"> Power BI tool</span>. 
-                  Additionally, I've chosen to <span className="text-AAsecondary"> host my MySQL</span> database on aiven.io for seamless accessibility and management.
-                </p>
+                Using <span className="text-AAsecondary">Confluent Kafka</span>, I&apos;ve set up a smooth pipeline for streaming bidding data directly from my <span className="text-AAsecondary">Python Flask website</span>. 
+                Through the utilization of <span className="text-AAsecondary">parallel consumer processes</span>, I efficiently fetch and store this data into a MySQL database. 
+                For insightful visualization, I&apos;ve developed a comprehensive dashboard using the <span className="text-AAsecondary">Power BI tool</span>. 
+                Additionally, I&apos;ve chosen to host my <span className="text-AAsecondary">MySQL</span> database on aiven.io for seamless accessibility and management.
+</p>
               </div>
               <ul
                 className="flex flex-wrap w-full text-gray-300 md:text-gray-400
