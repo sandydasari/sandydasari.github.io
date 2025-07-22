@@ -11,7 +11,7 @@ export default function GetInTouch() {
       <div className="flex flex-row items-center ">
         <ArrowIcon className="flex-none h-5 md:h-6 w-5 md:w-5 text-AAsecondary" />
         <div className="flex flex-row space-x-2 items-center">
-          <span className="text-AAsecondary font-sans text-sm  sm:text-base"> 04.</span>
+          <span className="text-AAsecondary font-sans text-sm  sm:text-base"> 05.</span>
           <span className=" font-sans text-AAsecondary text-base">What&apos;s Next?</span>
         </div>
       </div>

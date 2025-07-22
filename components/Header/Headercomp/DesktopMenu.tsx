@@ -22,8 +22,8 @@ export default function DesktopMenu(props: { finishedLoading: boolean }) {
         className=" text-AAsecondary"
        
       >
-        <ReactScrollLink to="aboutSection" spy={true} smooth={true} offset={-100} duration={200}>
-          &gt; 01. <span className="text-white hover:cursor-pointer hover:text-AAsecondary duration-300">About</span>
+        <ReactScrollLink to="latestUpdatesSection" spy={true} smooth={true} offset={-100} duration={200}>
+          &gt; 01. <span className="text-white hover:cursor-pointer hover:text-AAsecondary duration-300">Latest</span>
         </ReactScrollLink>
       </motion.div>
       <motion.div
@@ -70,6 +70,20 @@ export default function DesktopMenu(props: { finishedLoading: boolean }) {
         </ReactScrollLink>
         
       </motion.div>
+      <motion.div
+          initial={{ y: -40, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{
+            type: "spring",
+            duration: props.finishedLoading ? 0 : 1.2,
+            delay: props.finishedLoading ? 0 : 9.9,
+          }}
+          className="text-AAsecondary"
+        >
+          <ReactScrollLink to="ResearchSection" spy={true} smooth={true} offset={-100} duration={200}>
+            &gt; 04. <span className="text-white hover:cursor-pointer hover:text-AAsecondary duration-300">Research</span>
+          </ReactScrollLink>
+        </motion.div>
       <motion.span
         initial={{
           y: -40,
@@ -87,7 +101,7 @@ export default function DesktopMenu(props: { finishedLoading: boolean }) {
         className="text-AAsecondary"
       >
          <ReactScrollLink to="GetInTouchSection" spy={true} smooth={true} offset={-100} duration={200}>
-         &gt; 04. <span className="text-white  hover:cursor-pointer hover:text-AAsecondary duration-300">Contact</span>
+         &gt; 05. <span className="text-white  hover:cursor-pointer hover:text-AAsecondary duration-300">Contact</span>
         </ReactScrollLink>
       </motion.span>
       <a href={"/sandy_resume.pdf"} target={"_blank"} rel="noreferrer">

@@ -35,7 +35,7 @@ const MobileMenu = props => {
               className="text-white font-Text2 text-sm sm:text-base
              hover:text-AAsecondary hover:cursor-pointer duration-300"
             >
-              About
+              Latest
             </span>
           </Link>
           <Link

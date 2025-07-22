@@ -52,8 +52,9 @@ export default function MyName(props: { finishedLoading: boolean }) {
         }}
         className="text-gray-400 font-Header text-sm md:text-lg sm:text-md mt-10 tracking-wider"
         >
-        I&apos;m a <span className="text-AAsecondary">Golang Developer</span>, proficient in Go, Pega, .NET, DevOps, and passionate about data science.<br className="2xl:block hidden" /> 
-        I specialize in developing scalable applications using <span className="text-AAsecondary">Golang</span> and microservices architecture, as well as optimizing business processes and crafting robust web applications with <span className="text-AAsecondary">.NET</span>, <span className="text-AAsecondary">C#</span>, and <span className="text-AAsecondary">SQL Server</span>.
+        {/* I'm an  specializing in autonomous agents and RAG systems. I develop production-grade multi-agent architectures, retrieval-augmented generation pipelines, and intelligent automation solutions using Python, Go, with expertise in DevOps and MLOps practices. My research at IIT Bombay focuses on advancing agentic AI systems for enterprise deployment and scalable AI infrastructure. */}
+        <span className="text-AAsecondary">AI Engineer</span>, specializing in autonomous agents and RAG systems.<br className="2xl:block hidden" /> 
+        I develop production-grade multi-agent architectures, RAG pipelines, and intelligent automation solutions using Python, JS/TS.
         <br className="2xl:block hidden" />   
         {/* I&apos;m a <span className="text-AAsecondary">software engineer</span>, proficient in Pega, .NET, DevOps, and passionate about data science.<br className="2xl:block hidden" /> 
         I specialize in optimizing business processes and crafting robust web applications with <span className="text-AAsecondary">.NET</span>, <span className="text-AAsecondary">C#</span>, and <span className="text-AAsecondary">SQL Server</span>.
@@ -78,11 +79,20 @@ export default function MyName(props: { finishedLoading: boolean }) {
         }}
         className="mt-12"
       >
-        <a href={"/sandy_resume.pdf"} target={"_blank"} rel="noreferrer">
-          <button className="bg-AAprimary text-AAsecondary border rounded px-4 sm:px-8 py-3 sm:py-4 border-AAsecondary">
-            Check out my resume!
-          </button>
-        </a>
+
+          <a href="mailto:sandydasari977@gmail.com?subject=Let's Connect&body=Hi Sandy, I'd like to discuss potential opportunities." target={"_blank"} rel="noreferrer">
+            <button className="bg-AAprimary text-AAsecondary border rounded px-4 sm:px-8 py-3 sm:py-4 border-AAsecondary flex items-center gap-2">
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+              Get in Touch!
+            </button>
+          </a>
+          {/* <a href="tel:+918074816864">
+            <button className="bg-AAprimary text-AAsecondary border rounded px-4 sm:px-8 py-3 sm:py-4 border-AAsecondary">
+              Call Me
+            </button>
+          </a> */}
       </motion.div>
     </div>
   );
