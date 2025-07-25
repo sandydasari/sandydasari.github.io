@@ -9,14 +9,12 @@ import AppContext from "../AppContextFolder/AppContext";
 const addClass = (ref: any, myclass: string) => {
   ref.current?.classLIst.add(myclass);
 };
-const Header = (props: { finishedLoading: boolean,sectionsRef }) => {
+const Header = (props: { finishedLoading: boolean,sectionsRef:any }) => {
   const RefNavBar = useRef<HTMLDivElement>(null);
   const [ShowElement, setShowElement] = useState(false);
   const [rotate, setRotate] = useState<boolean>(false);
   const context = useContext(AppContext);
   const scrollSizeY=useRef<number>(0);
-
-  // Define the EventListener for the NavBar
   useEffect(() => {
     if (context.sharedState.portfolio.NavBar.IntervalEvent == null) {
       context.sharedState.portfolio.NavBar.IntervalEvent=() => {
@@ -54,12 +52,12 @@ const Header = (props: { finishedLoading: boolean,sectionsRef }) => {
   }, [context.sharedState.portfolio.NavBar, context.sharedState.portfolio.NavBar.scrolling]);
 
   
-
+  const finishedLoading = true;
   useEffect(() => {
     setTimeout(() => {
       setShowElement(true);
-    }, 10400);
-  }, []);
+    }, finishedLoading ? 0 : 10400);
+  }, [finishedLoading]);
 
   console.log("rotate from header : ", rotate);
   //veify document for serverSide rendering
