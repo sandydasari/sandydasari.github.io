@@ -1,5 +1,5 @@
 import React from "react";
-import { motion } from "../../../node_modules/framer-motion/dist/framer-motion";
+import { motion } from "framer-motion";
 import { Link as ReactScrollLink } from "react-scroll";
 
 export default function DesktopMenu(props: { finishedLoading: boolean }) {
