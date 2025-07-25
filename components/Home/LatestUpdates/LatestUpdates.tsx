@@ -22,7 +22,7 @@ const LatestUpdates = forwardRef<HTMLDivElement>((props, ref) => {
       team: "Academic Excellence",
       date: "+2 Grade",
       description: "Achieved state first rank during +2 grade, demonstrating exceptional academic performance and dedication to learning. This achievement laid the foundation for my technical journey.",
-      image: "/state-first-ranker.jpg",
+      image: "/img/state-first-ranker.png",
       techStack: ["Mathematics", "Physics", "Chemistry", "Academic Excellence"],
       tags: ["#StateFirst", "#AcademicExcellence", "#FoundationOfSuccess"]
     }
