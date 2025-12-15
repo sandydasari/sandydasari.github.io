@@ -15,6 +15,7 @@ import "aos/dist/aos.css";
 import Head from "next/head";
 import ScreenSizeDetector from "../components/CustomComponents/ScreenSizeDetector";
 import Maintenance from "../components/Home/Maintenance/Maintenance";
+import AskAI from "../components/Chat/AskAI";
 export default function Home() {
   const [ShowElement, setShowElement] = useState(false);
   const [ShowThisCantBeReached, setShowThisCantBeReached] = useState(false);
@@ -115,6 +116,7 @@ export default function Home() {
             <></>
           )}
           {!isProd && <ScreenSizeDetector />}
+          {context.sharedState.finishedLoading && <AskAI />}
         </div>
       ) : (
         <Maintenance />

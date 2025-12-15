@@ -1,0 +1,260 @@
+/**
+ * AskAI Chat Widget Component
+ * Floating AI assistant for portfolio Q&A
+ */
+
+import React, { useState, useRef, useEffect } from 'react';
+import { motion } from 'framer-motion';
+import { searchContent } from '../../utils/vectorSearch';
+import { generateResponse, LLMResponse } from '../../utils/llm';
+
+interface Message {
+  id: string;
+  role: 'user' | 'assistant';
+  content: string;
+  timestamp: Date;
+}
+
+const SUGGESTED_QUESTIONS = [
+  "What's the experience with building RAG systems at scale?",
+  "Tell me about the hybrid search project at Leoforce",
+  "What multi-agent systems have been developed?",
+  "What are the key technical skills and technologies used?",
+];
+
+export default function AskAI() {
+  const [isMounted, setIsMounted] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [input, setInput] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  // Only render on client-side to avoid SSR issues
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  // Auto-scroll to bottom when new messages arrive
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
+
+  // Focus input when chat opens
+  useEffect(() => {
+    if (isOpen && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [isOpen]);
+
+  const handleAsk = async (question: string = input) => {
+    if (!question.trim() || loading) return;
+
+    const userMessage: Message = {
+      id: Date.now().toString(),
+      role: 'user',
+      content: question,
+      timestamp: new Date(),
+    };
+
+    setMessages(prev => [...prev, userMessage]);
+    setInput('');
+    setLoading(true);
+    setError(null);
+
+    try {
+      // Search for relevant content
+      const searchResults = await searchContent(question, 3);
+
+      // Generate AI response
+      const response: LLMResponse = await generateResponse(question, searchResults);
+
+      const assistantMessage: Message = {
+        id: (Date.now() + 1).toString(),
+        role: 'assistant',
+        content: response.answer,
+        timestamp: new Date(),
+      };
+
+      setMessages(prev => [...prev, assistantMessage]);
+    } catch (err) {
+      console.error('Error in handleAsk:', err);
+      setError('Sorry, I encountered an error. Please try again.');
+
+      const errorMessage: Message = {
+        id: (Date.now() + 1).toString(),
+        role: 'assistant',
+        content: 'Sorry, I encountered an error processing your question. Please try again or rephrase your question.',
+        timestamp: new Date(),
+      };
+
+      setMessages(prev => [...prev, errorMessage]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      handleAsk();
+    }
+  };
+
+  const handleSuggestedQuestion = (question: string) => {
+    setInput(question);
+    handleAsk(question);
+  };
+
+  // Don't render until mounted (client-side only)
+  if (!isMounted) {
+    return null;
+  }
+
+  return (
+    <>
+      {/* Floating Toggle Button */}
+      <motion.button
+        initial={{ scale: 0, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ delay: 1, type: 'spring', stiffness: 260, damping: 20 }}
+        onClick={() => setIsOpen(!isOpen)}
+        className="fixed bottom-6 right-6 z-50 w-14 h-14 bg-AAsecondary hover:bg-opacity-90 rounded-full shadow-lg flex items-center justify-center transition-all duration-300 hover:scale-110"
+        aria-label="Toggle AI Assistant"
+      >
+        {isOpen ? (
+          <svg className="w-6 h-6 text-AAprimary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        ) : (
+          <svg className="w-6 h-6 text-AAprimary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+          </svg>
+        )}
+      </motion.button>
+
+      {/* Chat Window */}
+      {isOpen && (
+        <motion.div
+          initial={{ opacity: 0, y: 20, scale: 0.95 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          exit={{ opacity: 0, y: 20, scale: 0.95 }}
+          transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+          className="fixed bottom-24 right-6 z-50 w-96 h-[600px] bg-AAtertiary border border-gray-700 rounded-lg shadow-2xl flex flex-col"
+        >
+            {/* Header */}
+            <div className="bg-AAprimary border-b border-gray-700 px-4 py-4 rounded-t-lg">
+              <div className="flex items-center space-x-3">
+                <div className="w-12 h-12 bg-AAsecondary rounded-full flex items-center justify-center shadow-lg">
+                  <svg className="w-7 h-7 text-AAprimary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                  </svg>
+                </div>
+                <div>
+                  <h3 className="text-AAsecondary font-bold text-lg tracking-wide">ASK AI</h3>
+                  <p className="text-gray-400 text-xs">About Sandy's Portfolio</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Messages Area */}
+            <div className="flex-1 overflow-y-auto px-4 py-4 space-y-4">
+              {messages.length === 0 ? (
+                <div className="text-center py-8">
+                  <p className="text-gray-300 text-sm mb-4 px-4">
+                    Ask me anything about experience, skills, projects, or achievements!
+                  </p>
+                  <div className="space-y-2 px-3">
+                    <p className="text-gray-500 text-xs mb-3 font-medium">Suggested Questions:</p>
+                    {SUGGESTED_QUESTIONS.map((q, idx) => (
+                      <button
+                        key={idx}
+                        onClick={() => handleSuggestedQuestion(q)}
+                        className="block w-full text-left text-xs text-AAsecondary hover:text-white bg-AAprimary hover:bg-opacity-50 px-3 py-2 rounded border border-gray-700 hover:border-AAsecondary transition-all duration-200"
+                      >
+                        {q}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                messages.map((msg) => (
+                  <motion.div
+                    key={msg.id}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.2 }}
+                    className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
+                  >
+                    <div
+                      className={`max-w-[80%] px-4 py-2 rounded-lg ${
+                        msg.role === 'user'
+                          ? 'bg-AAsecondary text-AAprimary'
+                          : 'bg-AAprimary text-gray-300 border border-gray-700'
+                      }`}
+                    >
+                      <p className="text-sm whitespace-pre-wrap">{msg.content}</p>
+                      <p className="text-xs opacity-50 mt-1">
+                        {msg.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                      </p>
+                    </div>
+                  </motion.div>
+                ))
+              )}
+
+              {loading && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className="flex justify-start"
+                >
+                  <div className="bg-AAprimary text-gray-300 px-4 py-2 rounded-lg border border-gray-700">
+                    <div className="flex space-x-2">
+                      <div className="w-2 h-2 bg-AAsecondary rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+                      <div className="w-2 h-2 bg-AAsecondary rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+                      <div className="w-2 h-2 bg-AAsecondary rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+
+              {error && (
+                <div className="text-center text-AAError text-xs py-2">
+                  {error}
+                </div>
+              )}
+
+              <div ref={messagesEndRef} />
+            </div>
+
+            {/* Input Area */}
+            <div className="border-t border-gray-700 px-4 py-3 bg-AAprimary rounded-b-lg">
+              <div className="flex space-x-2">
+                <input
+                  ref={inputRef}
+                  type="text"
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  onKeyDown={handleKeyPress}
+                  placeholder="Ask about Sandy's experience..."
+                  disabled={loading}
+                  className="flex-1 bg-AAtertiary text-gray-300 placeholder-gray-500 border border-gray-700 rounded px-3 py-2 text-sm focus:outline-none focus:border-AAsecondary transition-colors disabled:opacity-50"
+                />
+                <button
+                  onClick={() => handleAsk()}
+                  disabled={!input.trim() || loading}
+                  className="bg-AAsecondary hover:bg-opacity-90 text-AAprimary px-4 py-2 rounded font-medium text-sm transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+        </motion.div>
+      )}
+    </>
+  );
+}
