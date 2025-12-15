@@ -2,6 +2,7 @@
 
 const nextConfig = {
   reactStrictMode: false,
+  output: 'export',
 
   // Turbopack config (empty to silence the error - Turbopack is default in Next.js 16)
   turbopack: {},
