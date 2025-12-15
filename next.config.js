@@ -4,10 +4,17 @@ const nextConfig = {
   reactStrictMode: false,
   output: 'export',
 
-  // Turbopack config (empty to silence the error - Turbopack is default in Next.js 16)
-  turbopack: {},
+  // Turbopack config for Transformers.js compatibility
+  turbopack: {
+    resolveAlias: {
+      // Prevent server-only packages from being bundled
+      'sharp': { browser: false },
+      'onnxruntime-node': { browser: false },
+    },
+    resolveExtensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
+  },
 
-  // Webpack config for Transformers.js compatibility
+  // Webpack config for Transformers.js compatibility (fallback for webpack mode)
   webpack: (config, { isServer }) => {
     if (!isServer) {
       // Polyfill Node.js modules for browser

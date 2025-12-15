@@ -23,15 +23,20 @@ async function getEmbedder() {
       if (!transformersModule) {
         transformersModule = await import('@xenova/transformers');
 
-        // Configure Transformers.js
-        if (transformersModule.env) {
+        // Configure Transformers.js (safely check if env exists)
+        if (transformersModule && typeof transformersModule.env === 'object' && transformersModule.env !== null) {
           transformersModule.env.allowLocalModels = false;
           transformersModule.env.allowRemoteModels = true;
         }
       }
 
-      // Create the pipeline
-      embedder = await transformersModule.pipeline(
+      // Create the pipeline - use the pipeline function directly
+      const pipelineFunc = transformersModule.pipeline || transformersModule.default?.pipeline;
+      if (!pipelineFunc) {
+        throw new Error('Pipeline function not found in Transformers.js module');
+      }
+
+      embedder = await pipelineFunc(
         'feature-extraction',
         'Xenova/all-MiniLM-L6-v2'
       );
