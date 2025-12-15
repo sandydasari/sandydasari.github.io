@@ -4,15 +4,8 @@ const nextConfig = {
   reactStrictMode: false,
   output: 'export',
 
-  // Turbopack config for Transformers.js compatibility
-  turbopack: {
-    resolveAlias: {
-      // Prevent server-only packages from being bundled
-      'sharp': { browser: false },
-      'onnxruntime-node': { browser: false },
-    },
-    resolveExtensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
-  },
+  // Turbopack config - keep empty for default behavior
+  turbopack: {},
 
   // Webpack config for Transformers.js compatibility (fallback for webpack mode)
   webpack: (config, { isServer }) => {
