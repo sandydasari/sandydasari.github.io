@@ -6,10 +6,47 @@ import { link } from "fs";
 export default function WhereIHaveWorked() {
   const workExperiences = [
     {
+      title: "AI Research Engineer",
+      company: "Leoforce",
+      location: "@AI Research Engineer",
+      date: "Oct 2025 - Present",
+      website: null,
+      tasks: [
+        {
+          text: "Shipped hybrid search RAG agentic system end-to-end from ideation to production deployment at billion-record scale.",
+          keywords: ["hybrid search", "RAG", "agentic system", "billion-record scale"]
+        },
+        {
+          text: "Architected hybrid search engine combining BM25 lexical matching with dense vector retrieval (HNSW algorithm) across 1.6+ billion candidate records, implementing reciprocal rank fusion (RRF) for result merging and achieving 40% improvement in candidate matching precision.",
+          keywords: ["BM25", "HNSW algorithm", "1.6+ billion", "RRF", "40% improvement"]
+        },
+        {
+          text: "Designed comprehensive RAG evaluation pipeline using DeepEval with metrics including faithfulness, answer relevancy, contextual precision/recall, and RAGAS scores.",
+          keywords: ["RAG evaluation", "DeepEval", "RAGAS scores"]
+        },
+        {
+          text: "Developed NLP preprocessing pipeline for resume parsing including named entity recognition (NER), skill extraction, and text normalization. Implemented semantic chunking strategies and experimented with dimension reduction techniques for embedding optimization at scale.",
+          keywords: ["NLP", "NER", "semantic chunking", "embedding optimization"]
+        },
+        {
+          text: "Built production multi-agent systems using LangGraph state machines with LiteLLM for unified LLM access, implementing tool-calling agents, supervisor patterns, and conditional routing. Integrated Langfuse for prompt tracking and OpenTelemetry for distributed tracing across microservices.",
+          keywords: ["LangGraph", "LiteLLM", "multi-agent systems", "OpenTelemetry"]
+        },
+        {
+          text: "Led OpenSearch 1.3 → 3.0 migration, implementing k-NN vector search with FAISS and Lucene engines, optimizing index mappings, query DSL performance, and infrastructure costs. Engineered async ETL pipelines for embedding generation using batch processing and parallel workers.",
+          keywords: ["OpenSearch", "k-NN vector search", "FAISS", "async ETL pipelines"]
+        },
+        {
+          text: "Developed FastAPI microservices with async operations, implementing connection pooling, request batching, and response streaming. Built comprehensive observability stack with custom metrics, alerting, and performance profiling for ML inference endpoints handling 10k+ QPS.",
+          keywords: ["FastAPI", "async operations", "10k+ QPS", "observability stack"]
+        }
+      ]
+    },
+    {
       title: "AI Engineer",
       company: "ANZ Operations and Technology",
       location: "@AI Engineer",
-      date: "Jun 2023 - Present",
+      date: "Jun 2023 - Sept 2025",
       link: "https://www.anz.com.au/",
       tasks: [
         {
