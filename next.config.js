@@ -3,6 +3,9 @@
 const nextConfig = {
   reactStrictMode: false,
 
+  // Turbopack config (empty to silence the error - Turbopack is default in Next.js 16)
+  turbopack: {},
+
   // Webpack config for Transformers.js compatibility
   webpack: (config, { isServer }) => {
     if (!isServer) {
