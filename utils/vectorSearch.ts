@@ -6,6 +6,8 @@
 // Cache the embedding model
 let embedder: any = null;
 let transformersModule: any = null;
+let isLoading = false;
+let loadError: Error | null = null;
 
 /**
  * Initialize or get the cached embedding model
@@ -15,24 +17,65 @@ async function getEmbedder() {
     throw new Error('Embeddings can only be generated on the client-side');
   }
 
-  if (!embedder) {
-    console.log('Loading Transformers.js and embedding model...');
+  // Return cached embedder if available
+  if (embedder) {
+    return embedder;
+  }
 
-    try {
-      // Dynamic import on client-side only
-      if (!transformersModule) {
-        transformersModule = await import('@xenova/transformers');
+  // If there was a previous load error, throw it
+  if (loadError) {
+    throw loadError;
+  }
 
-        // Configure Transformers.js (safely check if env exists)
-        if (transformersModule && typeof transformersModule.env === 'object' && transformersModule.env !== null) {
-          transformersModule.env.allowLocalModels = false;
-          transformersModule.env.allowRemoteModels = true;
+  // If already loading, wait for it
+  if (isLoading) {
+    return new Promise((resolve, reject) => {
+      const checkInterval = setInterval(() => {
+        if (embedder) {
+          clearInterval(checkInterval);
+          resolve(embedder);
+        } else if (loadError) {
+          clearInterval(checkInterval);
+          reject(loadError);
         }
-      }
+      }, 100);
+    });
+  }
 
-      // Create the pipeline - use the pipeline function directly
-      const pipelineFunc = transformersModule.pipeline || transformersModule.default?.pipeline;
-      if (!pipelineFunc) {
+  isLoading = true;
+  console.log('Loading Transformers.js and embedding model...');
+
+  try {
+    // Dynamic import on client-side only - with retry logic
+    if (!transformersModule) {
+      try {
+        // Use dynamic import to ensure it only loads on client
+        const module = await import('@xenova/transformers');
+        transformersModule = module;
+
+        // Configure Transformers.js environment
+        // Use optional chaining and nullish coalescing for safety
+        const env = module?.env;
+        if (env && typeof env === 'object') {
+          try {
+            env.allowLocalModels = false;
+            env.allowRemoteModels = true;
+          } catch (e) {
+            console.warn('Could not configure Transformers.js env:', e);
+          }
+        }
+      } catch (importError) {
+        console.error('Failed to import @xenova/transformers:', importError);
+        loadError = new Error('Failed to load Transformers.js module');
+        isLoading = false;
+        throw loadError;
+      }
+    }
+
+    // Create the pipeline
+    try {
+      const pipelineFunc = transformersModule?.pipeline || transformersModule?.default?.pipeline;
+      if (typeof pipelineFunc !== 'function') {
         throw new Error('Pipeline function not found in Transformers.js module');
       }
 
@@ -42,13 +85,20 @@ async function getEmbedder() {
       );
 
       console.log('Embedding model loaded successfully');
-    } catch (error) {
-      console.error('Error loading Transformers.js:', error);
-      throw new Error('Failed to load embedding model. Please refresh the page and try again.');
+      isLoading = false;
+      return embedder;
+    } catch (pipelineError) {
+      console.error('Failed to create pipeline:', pipelineError);
+      loadError = new Error('Failed to initialize embedding model');
+      isLoading = false;
+      throw loadError;
     }
+  } catch (error) {
+    console.error('Error loading Transformers.js:', error);
+    loadError = error instanceof Error ? error : new Error('Failed to load embedding model');
+    isLoading = false;
+    throw new Error('Failed to load embedding model. Please refresh the page and try again.');
   }
-
-  return embedder;
 }
 
 /**

@@ -5,8 +5,8 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { searchContent } from '../../utils/vectorSearch';
-import { generateResponse, LLMResponse } from '../../utils/llm';
+import type { SearchResult } from '../../utils/vectorSearch';
+import type { LLMResponse } from '../../utils/llm';
 
 interface Message {
   id: string;
@@ -65,6 +65,12 @@ export default function AskAI() {
     setError(null);
 
     try {
+      // Dynamically import the modules only when needed (client-side only)
+      const [{ searchContent }, { generateResponse }] = await Promise.all([
+        import('../../utils/vectorSearch'),
+        import('../../utils/llm'),
+      ]);
+
       // Search for relevant content
       const searchResults = await searchContent(question, 3);
 
