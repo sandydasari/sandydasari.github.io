@@ -1,405 +1,204 @@
-import Link from "next/link";
-import { useRouter } from "next/router";
 import React from "react";
-import ArrowIcon from "../../Icons/ArrowIcon";
-import Img from "../../smallComp/image/Img";
+import { useRouter } from "next/router";
 import GithubIcon from "../../Icons/GithubIconForSomethingIveBuild";
 import ExternalLink from "../../Icons/ExternalLink";
 
+const projects = [
+  {
+    category: "AI Leadership",
+    title: "Healthcare AI Agents Platform",
+    description:
+      "Leading development of an advanced healthcare AI platform with voice and text-based health record automation. Features AI scribe functionality, real-time conversations with simulated AI patients, comprehensive allergy and condition tracking, MCP server integration, and automated appointment booking.",
+    tech: ["Next.js", "Turborepo", "AI Agents", "Voice AI", "MCP Server"],
+    image: "/img/healthcare.png",
+    github: "#",
+    link: "",
+    featured: true,
+  },
+  {
+    category: "AI Leadership",
+    title: "E-commerce AI Agents Platform",
+    description:
+      "Intelligent multi-agent e-commerce system with specialized agents for search, cart management, and payment processing. Features vector database integration for semantic search, dual agent workflows, and user-customizable agent setup.",
+    tech: ["Multi-Agent Systems", "Vector Database", "SQLAlchemy", "Python"],
+    image: "/img/ecommerce.png",
+    github: "#",
+    link: "",
+    featured: true,
+  },
+  {
+    category: "Frontend Architecture",
+    title: "Blueprint Applications Platform",
+    description:
+      "Comprehensive blueprint applications framework with modular architecture serving as foundation for 5 interconnected applications. Features reusable components and standardized development patterns built with modern monorepo architecture.",
+    tech: ["Next.js", "Turborepo", "pnpm", "TypeScript"],
+    image: "/img/blueprint.png",
+    github: "#",
+    link: "",
+    featured: false,
+  },
+  {
+    category: "Enterprise AI",
+    title: "KnowHow Assist RAG Platform",
+    description:
+      "Enterprise-scale knowledge management system processing 60k+ documents using Google Cloud Vertex AI. Built complete ML pipeline with document ingestion, multi-modal embeddings, and vector search achieving 200ms query response time.",
+    tech: ["RAG Architecture", "Vertex AI", "Vector Search", "FastAPI"],
+    image: "/img/rag.png",
+    github: "#",
+    link: "",
+    featured: false,
+  },
+  {
+    category: "MTech Thesis — IIT Bombay",
+    title: "Neural Network SCF Prediction",
+    description:
+      "Implemented efficient algorithm in ANSYS-APDL achieving 90% reduction in time complexity. Trained deep learning models with Bayesian Optimization for material property analysis using Sobol sampling and neural networks.",
+    tech: ["Deep Learning", "Bayesian Optimization", "ANSYS-APDL", "Python"],
+    image: "/img/nn.png",
+    github: "https://github.com/sandydasari/AnsysAPDL_python",
+    link: "https://www.iitb.ac.in",
+    featured: false,
+  },
+  {
+    category: "AI Research",
+    title: "Medical Document Analysis AI",
+    description:
+      "Advanced medical data extraction using OCR with docTR deep learning model. Enhanced layoutLM with FUNSD dataset achieving 80% accuracy. Implemented semi-supervised learning with 3-5% accuracy improvements.",
+    tech: ["OCR", "docTR", "layoutLM", "Semi-supervised Learning"],
+    image: "/img/medical.png",
+    github: "#",
+    link: "",
+    featured: false,
+  },
+  {
+    category: "Data Engineering",
+    title: "YPredict — Real-time Analytics",
+    description:
+      "Scalable real-time data pipeline using Confluent Kafka for streaming 50,000+ daily transactions. Implemented parallel consumer processes achieving 99.9% uptime with sub-200ms processing speeds.",
+    tech: ["Confluent Kafka", "Python Flask", "Power BI", "MySQL"],
+    image: "/img/kafka.png",
+    github: "https://github.com/sandydasari/Ypredict",
+    link: "https://github.com/sandydasari/kafka-project1",
+    featured: false,
+  },
+];
+
 export default function SomethingIveBuilt() {
   const router = useRouter();
-  
+
+  const featured = projects.filter((p) => p.featured);
+  const other = projects.filter((p) => !p.featured);
+
   return (
     <div
       id="SomethingIveBuiltSection"
-      className=" flex flex-col xl:space-y-28 space-y-12 bg-AAprimary w-full  
-     2xl:px-72 lg:px-24 md:px-16 sm:px-16 py-32 px-4"
+      className="flex flex-col bg-AAprimary w-full 2xl:px-72 lg:px-24 md:px-16 sm:px-16 py-28 px-4"
     >
-      {/* Title */}
-      <div data-aos="fade-up" className=" flex flex-row  items-center md:px-0">
-        <ArrowIcon className={"flex-none h-5 md:h-6 w-5 md:w-5 translate-y-[2px] text-AAsecondary"} />
-        <div className="flex-none flex-row space-x-2 items-center pr-2">
-          <span className="text-AAsecondary font-sans text-sm  sm:text-xl"> 03.</span>
-          <span className=" font-bold tracking-wider text-gray-200 text-lg md:text-2xl w-44 md:w-56 opacity-85">
-            Some Things I&apos;ve Built
-          </span>
-        </div>
-        <div className="bg-gray-400 h-[0.2px] w-full xl:w-1/3 md:w-1/2"></div>
+      {/* Section Header */}
+      <div data-aos="fade-up" className="flex flex-row items-center mb-16">
+        <span className="text-AAsecondary font-mono text-sm mr-3">04.</span>
+        <span className="text-AAtext font-semibold tracking-wide text-xl md:text-2xl mr-6">
+          Some Things I&apos;ve Built
+        </span>
+        <div className="flex-1 h-px bg-AAborder max-w-xs"></div>
       </div>
 
-      <div className="flex flex-col xl:space-y-36 space-y-8 md:space-y-28">
-        {/* Healthcare AI Agents Project */}
-        <div data-aos="fade-up" className="relative md:grid md:grid-cols-12 w-full md:h-96 ">
-          {/* Left image */}
-          <div className="hidden bg-AAprimary z-10 py-4 absolute md:grid grid-cols-12 w-full h-full content-center">
-            <div className="relative rounded w-full h-full col-span-7">
-              <a href="#" target={"_blank"} rel="noreferrer">
-                <div className="absolute w-full h-full rounded bg-AAprimary transition-opacity opacity-30 hover:opacity-0 hover:cursor-pointer duration-300"></div>
-              </a>
-              <Img src={"/img/healthcare.png"} alt={"Healthcare AI Project"} className={`w-full rounded h-full`} />
-            </div>
-          </div>
-
-          {/* Right Content */}
-          <div className="md:absolute py-4 md:grid md:grid-cols-12 w-full h-full content-center">
-            {/* Background for text in mobile responsive */}
-            <div className="absolute w-full h-full bg-opacity-70 z-0">
-              <div className="relative w-full h-full">
-                <div className="absolute w-full h-full bg-yellow opacity-10 z-10"></div>
-                <div className="absolute w-full h-full bg-AAprimary opacity-80 z-10"></div>
-                <Img src={"/img/healthcare.png"} alt={"Healthcare AI Project"} className={`w-full h-full`} />
-              </div>
+      {/* Featured Projects — large cards with cover image */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-24 max-w-6xl mx-auto w-full">
+        {featured.map((project, i) => (
+          <div
+            key={i}
+            data-aos="fade-up"
+            className="group relative bg-AAsurface border border-AAborder rounded-xl overflow-hidden hover:border-AAsecondary/30 hover:shadow-[0_0_0_1px_rgba(201,169,110,0.15),0_8px_30px_-15px_rgba(201,169,110,0.25)] transition-all duration-300"
+          >
+            {/* Cover image */}
+            <div className="relative aspect-[16/9] overflow-hidden bg-AAprimary">
+              <img
+                src={project.image}
+                alt={project.title}
+                className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-[1.02] transition-all duration-500"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-AAsurface via-AAsurface/20 to-transparent" />
+              <span className="absolute top-4 left-4 bg-AAprimary/80 backdrop-blur-sm border border-AAborder text-AAsecondary text-[10px] font-mono tracking-widest uppercase px-2.5 py-1 rounded-full">
+                {project.category}
+              </span>
             </div>
 
-            <div className="px-8 pt-8 sm:pt-12 md:py-0 xl:col-span-6 xl:col-start-7 col-start-5 col-span-8 flex flex-col items-start md:items-end space-y-3">
-              <div className="flex flex-col space-y-1 md:items-end z-10">
-                <span className="text-AAsecondary text-base">AI Leadership Project</span>
-                <span className="md:text-gray-200 text-AAsecondary font-bold text-xl hover:cursor-pointer">
-                  Healthcare AI Agents Platform
-                </span>
+            {/* Body */}
+            <div className="p-7">
+              <div className="flex items-start justify-between gap-4 mb-3">
+                <h3 className="text-AAtext font-semibold text-lg leading-snug group-hover:text-AAsecondary transition-colors duration-200">
+                  {project.title}
+                </h3>
+                <div className="flex gap-3 flex-shrink-0">
+                  <GithubIcon link={project.github} />
+                  <ExternalLink url={project.link} router={router} />
+                </div>
               </div>
-              <div className="w-full md:bg-AAtertiary rounded-md py-6 md:p-6 z-10">
-                <p className="text-gray-300 md:text-gray-400 text-left md:text-right">
-                  Leading development of an advanced <span className="text-AAsecondary">healthcare AI platform</span> with 
-                  voice and text-based health record automation. Features include <span className="text-AAsecondary">AI scribe functionality</span>, 
-                  real-time conversations with simulated AI patients, comprehensive <span className="text-AAsecondary">allergy and condition tracking</span>, 
-                  MCP server integration, period tracker, and automated appointment booking with calendar integration. 
-                  Built using modern <span className="text-AAsecondary">microservices architecture</span>.
-                </p>
-              </div>
-              <ul className="flex flex-wrap w-full text-gray-300 md:text-gray-400 text-sm font-Text2 md:justify-end">
-                <span className="pr-4 z-10">Next.js</span>
-                <span className="pr-4 z-10">Turborepo</span>
-                <span className="pr-4 z-10">pnpm Monorepo</span>
-                <span className="pr-4 z-10">AI Agents</span>
-                <span className="pr-4 z-10">Voice AI</span>
-                <span className="pr-4 z-10">MCP Server</span>
-                <span className="pr-4 z-10">Healthcare AI</span>
-              </ul>
-              <div className="z-10 flex fle-row space-x-5">
-                <GithubIcon link="#" />
-                <ExternalLink url={""} router={router} />
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* E-commerce AI Agents Project */}
-        <div data-aos="fade-up" className="relative md:grid md:grid-cols-12 w-full md:h-96">
-          <div className="hidden bg-AAprimary z-10 py-4 absolute md:grid grid-cols-12 w-full h-full content-center">
-            <div className="relative rounded w-full h-full col-start-6 col-span-7">
-              <a href="#" target="_blank" rel="noreferrer">
-                <div className="absolute w-full h-full rounded bg-AAprimary transition-opacity opacity-50 hover:opacity-0 hover:cursor-pointer duration-300"></div>
-              </a>
-              <Img src={"/img/ecommerce.png"} alt={"E-commerce AI Project"} className={`w-full rounded h-full`} />
-            </div>
-          </div>
-
-          <div className="md:absolute py-4 md:grid md:grid-cols-12 w-full h-full content-center">
-            <div className="absolute w-full h-full bg-opacity-70 z-0 md:order-2">
-              <div className="relative w-full h-full">
-                <div className="absolute w-full h-full bg-yellow opacity-10 z-10"></div>
-                <div className="absolute w-full h-full bg-AAprimary opacity-80 z-10"></div>
-                <Img src={"/img/ecommerce.png"} alt={"E-commerce AI Project"} className={`w-full h-full`} />
-              </div>
-            </div>
-
-            <div className="px-8 pt-8 sm:pt-12 md:py-0 xl:col-span-6 col-span-8 flex flex-col items-start space-y-3 md:order-1">
-              <div className="flex flex-col space-y-1 z-10">
-                <span className="text-AAsecondary text-base">AI Leadership Project</span>
-                <span className="md:text-gray-200 text-AAsecondary font-bold text-xl hover:cursor-pointer">
-                  E-commerce AI Agents Platform
-                </span>
-              </div>
-              <div className="w-full md:bg-AAtertiary rounded-md py-6 md:p-6 z-10">
-                <p className="text-gray-300 md:text-gray-400 text-left">
-                  Architecting intelligent <span className="text-AAsecondary">multi-agent e-commerce system</span> with 
-                  specialized agents for search, cart management, and payment processing. Features <span className="text-AAsecondary">vector database integration</span> 
-                  for semantic search, dual agent workflows, and user-customizable agent setup. Built with <span className="text-AAsecondary">SQLAlchemy ORM</span> 
-                  for robust database management and includes custom agent description capabilities for personalized shopping experiences.
-                </p>
-              </div>
-              <ul className="flex flex-wrap w-full text-gray-300 md:text-gray-400 text-sm font-Text2 md:justify-start">
-                <span className="pr-4 z-10">Multi-Agent Systems</span>
-                <span className="pr-4 z-10">Vector Database</span>
-                <span className="pr-4 z-10">SQLAlchemy ORM</span>
-                <span className="pr-4 z-10">AI Agents</span>
-                <span className="pr-4 z-10">E-commerce</span>
-                <span className="pr-4 z-10">Python</span>
-              </ul>
-              <div className="z-10 flex fle-row space-x-5">
-                <GithubIcon link="#" />
-                <ExternalLink url={""} router={router} />
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Frontend Blueprint Project */}
-        <div data-aos="fade-up" className="relative md:grid md:grid-cols-12 w-full md:h-96">
-          <div className="hidden bg-AAprimary z-10 py-4 absolute md:grid grid-cols-12 w-full h-full content-center">
-            <div className="relative rounded w-full h-full col-span-7">
-              <a href="#" target={"_blank"} rel="noreferrer">
-                <div className="absolute w-full h-full rounded bg-AAprimary transition-opacity opacity-30 hover:opacity-0 hover:cursor-pointer duration-300"></div>
-              </a>
-              <Img src={"/img/blueprint.png"} alt={"Blueprint Project"} className={`w-full rounded h-full`} />
-            </div>
-          </div>
-
-          <div className="md:absolute py-4 md:grid md:grid-cols-12 w-full h-full content-center">
-            <div className="absolute w-full h-full bg-opacity-70 z-0">
-              <div className="relative w-full h-full">
-                <div className="absolute w-full h-full bg-yellow opacity-10 z-10"></div>
-                <div className="absolute w-full h-full bg-AAprimary opacity-80 z-10"></div>
-                <Img src={"/img/blueprint.png"} alt={"Blueprint Project"} className={`w-full h-full`} />
-              </div>
-            </div>
-
-            <div className="px-8 pt-8 sm:pt-12 md:py-0 xl:col-span-6 xl:col-start-7 col-start-5 col-span-8 flex flex-col items-start md:items-end space-y-3">
-              <div className="flex flex-col space-y-1 md:items-end z-10">
-                <span className="text-AAsecondary text-base">Frontend Architecture</span>
-                <span className="md:text-gray-200 text-AAsecondary font-bold text-xl hover:cursor-pointer">
-                  Blueprint Applications Platform
-                </span>
-              </div>
-              <div className="w-full md:bg-AAtertiary rounded-md py-6 md:p-6 z-10">
-                <p className="text-gray-300 md:text-gray-400 text-left md:text-right">
-                  Developing a comprehensive <span className="text-AAsecondary">blueprint applications framework</span> with 
-                  modular architecture serving as foundation for 5 interconnected applications. Features include 
-                  <span className="text-AAsecondary">blueprint functions</span>, reusable components, and standardized 
-                  development patterns. Built with modern <span className="text-AAsecondary">monorepo architecture</span> 
-                  for scalable enterprise-level applications.
-                </p>
-              </div>
-              <ul className="flex flex-wrap w-full text-gray-300 md:text-gray-400 text-sm font-Text2 md:justify-end">
-                <span className="pr-4 z-10">Next.js</span>
-                <span className="pr-4 z-10">Turborepo</span>
-                <span className="pr-4 z-10">pnpm Monorepo</span>
-                <span className="pr-4 z-10">Blueprint Architecture</span>
-                <span className="pr-4 z-10">Frontend Framework</span>
-                <span className="pr-4 z-10">TypeScript</span>
-              </ul>
-              <div className="z-10 flex fle-row space-x-5">
-                <GithubIcon link="#" />
-                <ExternalLink url={""} router={router} />
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* KnowHow Assist RAG Application */}
-        <div data-aos="fade-up" className="relative md:grid md:grid-cols-12 w-full md:h-96">
-          <div className="hidden bg-AAprimary z-10 py-4 absolute md:grid grid-cols-12 w-full h-full content-center">
-            <div className="relative rounded w-full h-full col-start-6 col-span-7">
-              <a href="#" target="_blank" rel="noreferrer">
-                <div className="absolute w-full h-full rounded bg-AAprimary transition-opacity opacity-50 hover:opacity-0 hover:cursor-pointer duration-300"></div>
-              </a>
-              <Img src={"/img/rag.png"} alt={"RAG Application"} className={`w-full rounded h-full`} />
-            </div>
-          </div>
-
-          <div className="md:absolute py-4 md:grid md:grid-cols-12 w-full h-full content-center">
-            <div className="absolute w-full h-full bg-opacity-70 z-0 md:order-2">
-              <div className="relative w-full h-full">
-                <div className="absolute w-full h-full bg-yellow opacity-10 z-10"></div>
-                <div className="absolute w-full h-full bg-AAprimary opacity-80 z-10"></div>
-                <Img src={"/img/rag.png"} alt={"RAG Application"} className={`w-full h-full`} />
-              </div>
-            </div>
-
-            <div className="px-8 pt-8 sm:pt-12 md:py-0 xl:col-span-6 col-span-8 flex flex-col items-start space-y-3 md:order-1">
-              <div className="flex flex-col space-y-1 z-10">
-                <span className="text-AAsecondary text-base">Enterprise AI</span>
-                <span className="md:text-gray-200 text-AAsecondary font-bold text-xl hover:cursor-pointer">
-                  KnowHow Assist RAG Platform
-                </span>
-              </div>
-              <div className="w-full md:bg-AAtertiary rounded-md py-6 md:p-6 z-10">
-                <p className="text-gray-300 md:text-gray-400 text-left">
-                  Enterprise-scale <span className="text-AAsecondary">knowledge management system</span> processing 60k+ 
-                  documents using <span className="text-AAsecondary">Google Cloud Vertex AI</span>. Built complete ML pipeline 
-                  with document ingestion, multi-modal embeddings, and <span className="text-AAsecondary">vector search</span> 
-                  achieving 200ms query response time. Features real-time streaming chat interface with 
-                  <span className="text-AAsecondary">React.js/TypeScript</span> frontend and FastAPI backend.
-                </p>
-              </div>
-              <ul className="flex flex-wrap w-full text-gray-300 md:text-gray-400 text-sm font-Text2 md:justify-start">
-                <span className="pr-4 z-10">RAG Architecture</span>
-                <span className="pr-4 z-10">Google Cloud Vertex AI</span>
-                <span className="pr-4 z-10">Vector Search</span>
-                <span className="pr-4 z-10">React.js</span>
-                <span className="pr-4 z-10">FastAPI</span>
-                <span className="pr-4 z-10">Multi-modal AI</span>
-              </ul>
-              <div className="z-10 flex fle-row space-x-5">
-                <GithubIcon link="#" />
-                <ExternalLink url={""} router={router} />
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Neural Network SCF Project */}
-        <div data-aos="fade-up" className="relative md:grid md:grid-cols-12 w-full md:h-96">
-          <div className="hidden bg-AAprimary z-10 py-4 absolute md:grid grid-cols-12 w-full h-full content-center">
-            <div className="relative rounded w-full h-full col-span-7">
-              <a href="https://github.com/sandydasari/AnsysAPDL_python" target={"_blank"} rel="noreferrer">
-                <div className="absolute w-full h-full rounded bg-AAprimary transition-opacity opacity-30 hover:opacity-0 hover:cursor-pointer duration-300"></div>
-              </a>
-              <Img src={"/img/nn.png"} alt={"Neural Network Project"} className={`w-full rounded h-full`} />
-            </div>
-          </div>
-
-          <div className="md:absolute py-4 md:grid md:grid-cols-12 w-full h-full content-center">
-            <div className="absolute w-full h-full bg-opacity-70 z-0">
-              <div className="relative w-full h-full">
-                <div className="absolute w-full h-full bg-yellow opacity-10 z-10"></div>
-                <div className="absolute w-full h-full bg-AAprimary opacity-80 z-10"></div>
-                <Img src={"/img/nn.png"} alt={"Neural Network Project"} className={`w-full h-full`} />
-              </div>
-            </div>
-
-            <div className="px-8 pt-8 sm:pt-12 md:py-0 xl:col-span-6 xl:col-start-7 col-start-5 col-span-8 flex flex-col items-start md:items-end space-y-3">
-              <div className="flex flex-col space-y-1 md:items-end z-10">
-                <span className="text-AAsecondary text-base">MTech Thesis</span>
-                <a href="https://www.iitb.ac.in" target="_blank" rel="noopener noreferrer">
-                  <span className="md:text-gray-200 text-AAsecondary font-bold text-xl hover:cursor-pointer">
-                    Neural Network SCF Prediction
+              <p className="text-AAmuted text-sm leading-relaxed mb-5">
+                {project.description}
+              </p>
+              <div className="flex flex-wrap gap-1.5">
+                {project.tech.map((t, j) => (
+                  <span key={j} className="text-[10px] font-mono text-AAmuted bg-AAprimary border border-AAborder px-2.5 py-1 rounded-full">
+                    {t}
                   </span>
-                </a>
-              </div>
-              <div className="w-full md:bg-AAtertiary rounded-md py-6 md:p-6 z-10">
-                <p className="text-gray-300 md:text-gray-400 text-left md:text-right">
-                  Implemented efficient algorithm in <span className="text-AAsecondary">ANSYS-APDL</span> achieving 90% reduction 
-                  in time complexity. Trained <span className="text-AAsecondary">deep learning models</span> with 
-                  <span className="text-AAsecondary">Bayesian Optimization</span> for material property analysis. 
-                  Used <span className="text-AAsecondary">Sobol sampling</span> and neural networks for geometric parameter 
-                  dependency insights in structural engineering applications.
-                </p>
-              </div>
-              <ul className="flex flex-wrap w-full text-gray-300 md:text-gray-400 text-sm font-Text2 md:justify-end">
-                <span className="pr-4 z-10">Deep Learning</span>
-                <span className="pr-4 z-10">Neural Networks</span>
-                <span className="pr-4 z-10">Bayesian Optimization</span>
-                <span className="pr-4 z-10">ANSYS-APDL</span>
-                <span className="pr-4 z-10">Sobol Sampling</span>
-                <span className="pr-4 z-10">Python</span>
-              </ul>
-              <div className="z-10 flex fle-row space-x-5">
-                <GithubIcon link="https://github.com/sandydasari/AnsysAPDL_python" />
-                <a href="https://www.iitb.ac.in/" target={"_blank"} rel="noreferrer">
-                  <ExternalLink url={""} router={router} />
-                </a>
+                ))}
               </div>
             </div>
           </div>
-        </div>
+        ))}
+      </div>
 
-        {/* Document Analysis ML Project */}
-        <div data-aos="fade-up" className="relative md:grid md:grid-cols-12 w-full md:h-96">
-          <div className="hidden bg-AAprimary z-10 py-4 absolute md:grid grid-cols-12 w-full h-full content-center">
-            <div className="relative rounded w-full h-full col-start-6 col-span-7">
-              <a href="#" target="_blank" rel="noreferrer">
-                <div className="absolute w-full h-full rounded bg-AAprimary transition-opacity opacity-50 hover:opacity-0 hover:cursor-pointer duration-300"></div>
-              </a>
-              <Img src={"/img/medical.png"} alt={"Document Analysis Project"} className={`w-full rounded h-full`} />
-            </div>
-          </div>
+      {/* Other Projects — compact grid with thumbnails */}
+      <div data-aos="fade-up" className="max-w-6xl mx-auto w-full">
+        <p className="text-AAmuted font-mono text-xs tracking-widest uppercase mb-8 text-center">
+          Other notable work
+        </p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {other.map((project, i) => (
+            <div
+              key={i}
+              data-aos="fade-up"
+              className="group bg-AAsurface border border-AAborder rounded-xl overflow-hidden flex flex-col hover:border-AAsecondary/30 transition-all duration-300 hover:-translate-y-1"
+            >
+              {/* Thumbnail */}
+              <div className="relative aspect-[16/9] overflow-hidden bg-AAprimary">
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  className="w-full h-full object-cover opacity-70 group-hover:opacity-100 group-hover:scale-[1.03] transition-all duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-AAsurface via-AAsurface/30 to-transparent" />
+              </div>
 
-          <div className="md:absolute py-4 md:grid md:grid-cols-12 w-full h-full content-center">
-            <div className="absolute w-full h-full bg-opacity-70 z-0 md:order-2">
-              <div className="relative w-full h-full">
-                <div className="absolute w-full h-full bg-yellow opacity-10 z-10"></div>
-                <div className="absolute w-full h-full bg-AAprimary opacity-80 z-10"></div>
-                <Img src={"/img/medical.png"} alt={"Document Analysis Project"} className={`w-full h-full`} />
-              </div>
-            </div>
-
-            <div className="px-8 pt-8 sm:pt-12 md:py-0 xl:col-span-6 col-span-8 flex flex-col items-start space-y-3 md:order-1">
-              <div className="flex flex-col space-y-1 z-10">
-                <span className="text-AAsecondary text-base">AI Research</span>
-                <span className="md:text-gray-200 text-AAsecondary font-bold text-xl hover:cursor-pointer">
-                  Medical Document Analysis AI
-                </span>
-              </div>
-              <div className="w-full md:bg-AAtertiary rounded-md py-6 md:p-6 z-10">
-                <p className="text-gray-300 md:text-gray-400 text-left">
-                  Advanced <span className="text-AAsecondary">medical data extraction</span> using OCR with 
-                  <span className="text-AAsecondary">docTR deep learning model</span>. Developed Label Studio API 
-                  for multiple data reports and implemented <span className="text-AAsecondary">semi-supervised learning</span> 
-                  achieving 3-5% accuracy improvements. Enhanced <span className="text-AAsecondary">layoutLM model</span> 
-                  with FUNSD dataset achieving 80% accuracy in document understanding.
-                </p>
-              </div>
-              <ul className="flex flex-wrap w-full text-gray-300 md:text-gray-400 text-sm font-Text2 md:justify-start">
-                <span className="pr-4 z-10">OCR</span>
-                <span className="pr-4 z-10">docTR</span>
-                <span className="pr-4 z-10">layoutLM</span>
-                <span className="pr-4 z-10">Semi-supervised Learning</span>
-                <span className="pr-4 z-10">Label Studio API</span>
-                <span className="pr-4 z-10">Medical AI</span>
-              </ul>
-              <div className="z-10 flex fle-row space-x-5">
-                <GithubIcon link="#" />
-                <ExternalLink url={""} router={router} />
-              </div>
-            </div>
-          </div>
-        </div>
-        {/* Kafka Real-time Data Pipeline Project */}
-        <div data-aos="fade-up" className="relative md:grid md:grid-cols-12 w-full md:h-96">
-          <div className="hidden bg-AAprimary z-10 py-4 absolute md:grid grid-cols-12 w-full h-full content-center">
-            <div className="relative rounded w-full h-full col-span-7">
-              <a href="https://github.com/sandydasari/kafka-project1" target={"_blank"} rel="noreferrer">
-                <div className="absolute w-full h-full rounded bg-AAprimary transition-opacity opacity-30 hover:opacity-0 hover:cursor-pointer duration-300"></div>
-              </a>
-              <Img src={"/img/kafka.png"} alt={"Kafka Pipeline Project"} className={`w-full rounded h-full`} />
-            </div>
-          </div>
-
-          <div className="md:absolute py-4 md:grid md:grid-cols-12 w-full h-full content-center">
-            <div className="absolute w-full h-full bg-opacity-70 z-0">
-              <div className="relative w-full h-full">
-                <div className="absolute w-full h-full bg-yellow opacity-10 z-10"></div>
-                <div className="absolute w-full h-full bg-AAprimary opacity-80 z-10"></div>
-                <Img src={"/img/kafka.png"} alt={"Kafka Pipeline Project"} className={`w-full h-full`} />
-              </div>
-            </div>
-
-            <div className="px-8 pt-8 sm:pt-12 md:py-0 xl:col-span-6 xl:col-start-7 col-start-5 col-span-8 flex flex-col items-start md:items-end space-y-3">
-              <div className="flex flex-col space-y-1 md:items-end z-10">
-                <span className="text-AAsecondary text-base">Data Engineering</span>
-                <a href="https://github.com/sandydasari/kafka-project1" target="_blank" rel="noopener noreferrer">
-                  <span className="md:text-gray-200 text-AAsecondary font-bold text-xl hover:cursor-pointer">
-                    YPredict - Real-time Analytics
+              {/* Body */}
+              <div className="p-5 flex-1 flex flex-col">
+                <div className="flex items-start justify-between mb-3">
+                  <span className="text-AAsecondary font-mono text-[10px] tracking-widest uppercase leading-tight">
+                    {project.category}
                   </span>
-                </a>
-              </div>
-              <div className="w-full md:bg-AAtertiary rounded-md py-6 md:p-6 z-10">
-                <p className="text-gray-300 md:text-gray-400 text-left md:text-right">
-                  Built scalable <span className="text-AAsecondary">real-time data pipeline</span> using Confluent Kafka 
-                  for streaming 50,000+ daily transactions from Python Flask website. Implemented 
-                  <span className="text-AAsecondary">parallel consumer processes</span> achieving 99.9% uptime with 
-                  sub-200ms processing speeds. Developed comprehensive <span className="text-AAsecondary">Power BI dashboard</span> 
-                  for data visualization and hosted MySQL database on aiven.io for seamless accessibility.
+                  <div className="flex gap-3 flex-shrink-0 ml-2">
+                    <GithubIcon link={project.github} />
+                    <ExternalLink url={project.link} router={router} />
+                  </div>
+                </div>
+                <h3 className="text-AAtext font-semibold text-base mb-2 group-hover:text-AAsecondary transition-colors duration-200">
+                  {project.title}
+                </h3>
+                <p className="text-AAmuted text-xs leading-relaxed flex-1">
+                  {project.description}
                 </p>
-              </div>
-              <ul className="flex flex-wrap w-full text-gray-300 md:text-gray-400 text-sm font-Text2 md:justify-end">
-                <span className="pr-4 z-10">Confluent Kafka</span>
-                <span className="pr-4 z-10">Python Flask</span>
-                <span className="pr-4 z-10">Real-time Processing</span>
-                <span className="pr-4 z-10">Power BI</span>
-                <span className="pr-4 z-10">MySQL</span>
-                <span className="pr-4 z-10">Data Pipeline</span>
-              </ul>
-              <div className="z-10 flex fle-row space-x-5">
-                <GithubIcon link="https://github.com/sandydasari/Ypredict" />
-                <a href="https://github.com/sandydasari/kafka-project1" target={"_blank"} rel="noreferrer">
-                  <ExternalLink url={""} router={router} />
-                </a>
+                <div className="flex flex-wrap gap-1.5 mt-4">
+                  {project.tech.slice(0, 4).map((t, j) => (
+                    <span key={j} className="text-[10px] font-mono text-AAmuted">
+                      {t}{j < Math.min(project.tech.length - 1, 3) ? " ·" : ""}
+                    </span>
+                  ))}
+                </div>
               </div>
             </div>
-          </div>
+          ))}
         </div>
       </div>
     </div>

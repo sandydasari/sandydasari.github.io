@@ -1,6 +1,7 @@
 import "../styles/globals.css";
 import { Analytics } from '@vercel/analytics/react';
 import AppContext from "../components/AppContextFolder/AppContext";
+import { ThemeProvider } from "../components/Theme/ThemeProvider";
 import { useRef, useState } from "react";
 
 function MyApp({ Component, pageProps }) {
@@ -30,10 +31,12 @@ function MyApp({ Component, pageProps }) {
     finishedLoading: false,
   });
   return (
-    <AppContext.Provider value={{ sharedState, setSharedState }}>
-      <Component {...pageProps} />
-      <Analytics />
-    </AppContext.Provider>
+    <ThemeProvider>
+      <AppContext.Provider value={{ sharedState, setSharedState }}>
+        <Component {...pageProps} />
+        <Analytics />
+      </AppContext.Provider>
+    </ThemeProvider>
   );
 }
 

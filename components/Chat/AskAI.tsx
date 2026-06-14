@@ -1,183 +1,245 @@
 /**
- * AskAI Chat Widget Component
- * Floating AI assistant for portfolio Q&A
+ * AskAI Chat Widget — polished, theme-aware.
+ * In-browser Q&A over portfolio content via local vector search + LLM utils.
  */
 
-import React, { useState, useRef, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import type { SearchResult } from '../../utils/vectorSearch';
-import type { LLMResponse } from '../../utils/llm';
+import React, { useState, useRef, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import type { LLMResponse } from "../../utils/llm";
 
-interface Message {
+type Message = {
   id: string;
-  role: 'user' | 'assistant';
+  role: "user" | "assistant";
   content: string;
   timestamp: Date;
-}
+};
 
 const SUGGESTED_QUESTIONS = [
-  "What's the experience with building RAG systems at scale?",
-  "Tell me about the hybrid search project at Leoforce",
-  "What multi-agent systems have been developed?",
-  "What are the key technical skills and technologies used?",
+  "What's your experience building RAG systems at scale?",
+  "Tell me about the hybrid search work at Leoforce.",
+  "Which multi-agent systems have you shipped?",
+  "Summarise your research at IIT Bombay.",
 ];
 
+function formatTime(d: Date) {
+  return d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+}
+
 export default function AskAI() {
-  const [isMounted, setIsMounted] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const endRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // Only render on client-side to avoid SSR issues
+  useEffect(() => setMounted(true), []);
+
   useEffect(() => {
-    setIsMounted(true);
-  }, []);
+    endRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages, loading]);
 
-  // Auto-scroll to bottom when new messages arrive
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages]);
+    if (open) inputRef.current?.focus();
+  }, [open]);
 
-  // Focus input when chat opens
-  useEffect(() => {
-    if (isOpen && inputRef.current) {
-      inputRef.current.focus();
-    }
-  }, [isOpen]);
+  const ask = async (question: string = input) => {
+    const q = question.trim();
+    if (!q || loading) return;
 
-  const handleAsk = async (question: string = input) => {
-    if (!question.trim() || loading) return;
-
-    const userMessage: Message = {
+    const userMsg: Message = {
       id: Date.now().toString(),
-      role: 'user',
-      content: question,
+      role: "user",
+      content: q,
       timestamp: new Date(),
     };
-
-    setMessages(prev => [...prev, userMessage]);
-    setInput('');
+    setMessages((p) => [...p, userMsg]);
+    setInput("");
     setLoading(true);
     setError(null);
 
     try {
-      // Dynamically import the modules only when needed (client-side only)
       const [{ searchContent }, { generateResponse }] = await Promise.all([
-        import('../../utils/vectorSearch'),
-        import('../../utils/llm'),
+        import("../../utils/vectorSearch"),
+        import("../../utils/llm"),
       ]);
-
-      // Search for relevant content
-      const searchResults = await searchContent(question, 3);
-
-      // Generate AI response
-      const response: LLMResponse = await generateResponse(question, searchResults);
-
-      const assistantMessage: Message = {
-        id: (Date.now() + 1).toString(),
-        role: 'assistant',
-        content: response.answer,
-        timestamp: new Date(),
-      };
-
-      setMessages(prev => [...prev, assistantMessage]);
+      const hits = await searchContent(q, 3);
+      const response: LLMResponse = await generateResponse(q, hits);
+      setMessages((p) => [
+        ...p,
+        {
+          id: (Date.now() + 1).toString(),
+          role: "assistant",
+          content: response.answer,
+          timestamp: new Date(),
+        },
+      ]);
     } catch (err) {
-      console.error('Error in handleAsk:', err);
-      setError('Sorry, I encountered an error. Please try again.');
-
-      const errorMessage: Message = {
-        id: (Date.now() + 1).toString(),
-        role: 'assistant',
-        content: 'Sorry, I encountered an error processing your question. Please try again or rephrase your question.',
-        timestamp: new Date(),
-      };
-
-      setMessages(prev => [...prev, errorMessage]);
+      console.error("AskAI error:", err);
+      setError("Sorry — I hit an error answering that. Try rephrasing.");
+      setMessages((p) => [
+        ...p,
+        {
+          id: (Date.now() + 1).toString(),
+          role: "assistant",
+          content: "Sorry, I hit an error answering that. Try rephrasing.",
+          timestamp: new Date(),
+        },
+      ]);
     } finally {
       setLoading(false);
     }
   };
 
-  const handleKeyPress = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
+  const onKey = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
-      handleAsk();
+      ask();
     }
   };
 
-  const handleSuggestedQuestion = (question: string) => {
-    setInput(question);
-    handleAsk(question);
-  };
-
-  // Don't render until mounted (client-side only)
-  if (!isMounted) {
-    return null;
-  }
+  if (!mounted) return null;
 
   return (
     <>
-      {/* Floating Toggle Button */}
-      <motion.button
-        initial={{ scale: 0, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ delay: 1, type: 'spring', stiffness: 260, damping: 20 }}
-        onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 w-12 h-12 sm:w-14 sm:h-14 bg-AAsecondary hover:bg-opacity-90 rounded-full shadow-lg flex items-center justify-center transition-all duration-300 hover:scale-110"
-        aria-label="Toggle AI Assistant"
-      >
-        {isOpen ? (
-          <svg className="w-5 h-5 sm:w-6 sm:h-6 text-AAprimary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        ) : (
-          <svg className="w-5 h-5 sm:w-6 sm:h-6 text-AAprimary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
-          </svg>
-        )}
-      </motion.button>
+      {/* Floating launcher — visibly AI: gradient orb + pill label + pulsing aura */}
+      <div className="fixed bottom-5 right-5 sm:bottom-6 sm:right-6 z-50 flex items-center gap-2.5">
+        {/* Animated "Ask my AI" pill — hidden when chat is open */}
+        <AnimatePresence>
+          {!open && (
+            <motion.button
+              key="pill"
+              initial={{ opacity: 0, x: 8, scale: 0.96 }}
+              animate={{ opacity: 1, x: 0, scale: 1 }}
+              exit={{ opacity: 0, x: 8, scale: 0.96 }}
+              transition={{ duration: 0.2, delay: 0.5 }}
+              onClick={() => setOpen(true)}
+              className="hidden sm:inline-flex items-center gap-2 bg-AAprimary/90 backdrop-blur-sm border border-AAborder hover:border-AAborder-strong text-AAtext text-xs font-medium pl-2.5 pr-3 py-2 rounded-full shadow-lg shadow-black/10 transition-colors"
+            >
+              <span className="inline-flex items-center gap-1 font-mono text-[10px] tracking-widest uppercase text-violet-400">
+                AI
+              </span>
+              <span className="text-AAmuted">·</span>
+              <span>Ask me</span>
+            </motion.button>
+          )}
+        </AnimatePresence>
 
-      {/* Chat Window */}
-      {isOpen && (
-        <motion.div
-          initial={{ opacity: 0, y: 20, scale: 0.95 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          exit={{ opacity: 0, y: 20, scale: 0.95 }}
-          transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-          className="fixed bottom-20 right-4 sm:bottom-24 sm:right-6 z-50 w-[calc(100vw-2rem)] sm:w-96 h-[calc(100vh-8rem)] sm:h-[600px] max-h-[600px] bg-AAtertiary border border-gray-700 rounded-lg shadow-2xl flex flex-col"
+        <motion.button
+          initial={{ scale: 0, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ delay: 0.3, type: "spring", stiffness: 280, damping: 22 }}
+          onClick={() => setOpen((v) => !v)}
+          aria-label={open ? "Close AI assistant" : "Open AI assistant"}
+          className="relative w-14 h-14 rounded-full flex items-center justify-center hover:scale-105 active:scale-95 transition-transform duration-150"
         >
+          {/* Pulsing aura behind the orb */}
+          {!open && (
+            <>
+              <span className="absolute inset-0 rounded-full bg-gradient-to-tr from-fuchsia-500 via-violet-500 to-sky-400 opacity-60 blur-md animate-pulse" />
+              <span className="absolute -inset-1 rounded-full bg-gradient-to-tr from-fuchsia-500/30 via-violet-500/30 to-sky-400/30 blur-xl animate-pulse" />
+            </>
+          )}
+
+          {/* Gradient orb */}
+          <span
+            className={`relative w-12 h-12 rounded-full flex items-center justify-center shadow-lg shadow-violet-500/30 ${
+              open
+                ? "bg-AAtext text-AAprimary"
+                : "bg-gradient-to-tr from-fuchsia-500 via-violet-500 to-sky-400 text-white"
+            }`}
+          >
+            {open ? (
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
+            ) : (
+              // Sparkles / AI glyph
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2l1.6 4.4L18 8l-4.4 1.6L12 14l-1.6-4.4L6 8l4.4-1.6L12 2z" />
+                <path d="M19 14l.9 2.4L22 17l-2.1.6L19 20l-.9-2.4L16 17l2.1-.6L19 14z" />
+                <path d="M5 14l.7 1.8L7.5 16l-1.8.7L5 18.5l-.7-1.8L2.5 16l1.8-.7L5 14z" />
+              </svg>
+            )}
+          </span>
+
+          {/* Status dot */}
+          {!open && (
+            <span className="absolute bottom-0.5 right-0.5 w-3 h-3 rounded-full bg-emerald-400 border-2 border-AAprimary" />
+          )}
+        </motion.button>
+      </div>
+
+      {/* Chat panel */}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            key="panel"
+            initial={{ opacity: 0, y: 16, scale: 0.97 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 16, scale: 0.97 }}
+            transition={{ duration: 0.18, ease: "easeOut" }}
+            className="fixed bottom-20 right-4 sm:bottom-24 sm:right-6 z-50 w-[calc(100vw-2rem)] sm:w-[400px] max-h-[min(640px,calc(100vh-7rem))] flex flex-col bg-AAprimary border border-AAborder rounded-2xl shadow-2xl shadow-black/30 overflow-hidden"
+          >
             {/* Header */}
-            <div className="bg-AAprimary border-b border-gray-700 px-3 sm:px-4 py-3 sm:py-4 rounded-t-lg">
-              <div className="flex items-center justify-between">
-                <div className="flex-1 min-w-0">
-                  <h3 className="text-gray-200 font-semibold text-base sm:text-lg">AI Assistant</h3>
-                  <p className="text-gray-400 text-xs truncate">Ask about experience and projects</p>
+            <div className="relative px-5 py-4 border-b border-AAborder flex items-center justify-between overflow-hidden">
+              {/* subtle gradient wash */}
+              <div className="pointer-events-none absolute inset-0 opacity-[0.08] bg-gradient-to-r from-fuchsia-500 via-violet-500 to-sky-400" />
+              <div className="relative flex items-center gap-3 min-w-0">
+                <div className="relative w-9 h-9 rounded-full flex items-center justify-center shadow-md shadow-violet-500/30">
+                  <span className="absolute inset-0 rounded-full bg-gradient-to-tr from-fuchsia-500 via-violet-500 to-sky-400" />
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="white" className="relative">
+                    <path d="M12 2l1.6 4.4L18 8l-4.4 1.6L12 14l-1.6-4.4L6 8l4.4-1.6L12 2z" />
+                    <path d="M19 14l.9 2.4L22 17l-2.1.6L19 20l-.9-2.4L16 17l2.1-.6L19 14z" />
+                  </svg>
                 </div>
-                <div className="flex items-center gap-1 text-AAsecondary text-xs font-medium">
-                  <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></div>
-                  <span className="hidden sm:inline">Online</span>
+                <div className="min-w-0">
+                  <div className="flex items-center gap-2">
+                    <span className="text-AAtext text-sm font-medium truncate">Ask my AI</span>
+                    <span className="font-mono text-[9px] tracking-widest uppercase text-violet-400 border border-violet-500/30 rounded-full px-1.5 py-0.5">
+                      Beta
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-1.5 text-AAmuted text-[11px] font-mono">
+                    <span className="relative flex w-1.5 h-1.5">
+                      <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 animate-ping" />
+                      <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500" />
+                    </span>
+                    Runs locally · in your browser
+                  </div>
                 </div>
               </div>
+              <button
+                onClick={() => setOpen(false)}
+                aria-label="Close"
+                className="relative text-AAmuted hover:text-AAtext transition-colors p-1"
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="18" y1="6" x2="6" y2="18" />
+                  <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+              </button>
             </div>
 
-            {/* Messages Area */}
-            <div className="flex-1 overflow-y-auto px-3 sm:px-4 py-3 sm:py-4 space-y-3 sm:space-y-4">
+            {/* Messages */}
+            <div className="flex-1 overflow-y-auto px-4 py-4 space-y-3">
               {messages.length === 0 ? (
-                <div className="text-center py-4 sm:py-8">
-                  <p className="text-gray-300 text-xs sm:text-sm mb-3 sm:mb-4 px-2 sm:px-4">
-                    Ask me anything about experience, skills, projects, or achievements.
+                <div className="py-3">
+                  <p className="text-AAtext text-sm leading-relaxed mb-4">
+                    <span className="font-medium text-AAtext">AI assistant</span> trained on Sandy's portfolio. Ask anything about her work, projects, or research, answered live from her resume and case studies.
                   </p>
-                  <div className="space-y-2 px-2 sm:px-3">
-                    <p className="text-gray-500 text-xs mb-2 sm:mb-3 font-medium">Suggested Questions:</p>
-                    {SUGGESTED_QUESTIONS.map((q, idx) => (
+                  <p className="text-AAmuted text-[11px] font-mono tracking-wider uppercase mb-2">
+                    Try
+                  </p>
+                  <div className="space-y-1.5">
+                    {SUGGESTED_QUESTIONS.map((q) => (
                       <button
-                        key={idx}
-                        onClick={() => handleSuggestedQuestion(q)}
-                        className="block w-full text-left text-xs text-AAsecondary hover:text-white bg-AAprimary hover:bg-opacity-50 px-2 sm:px-3 py-2 rounded border border-gray-700 hover:border-AAsecondary transition-all duration-200"
+                        key={q}
+                        onClick={() => ask(q)}
+                        className="block w-full text-left text-sm text-AAtext bg-AAsurface/60 hover:bg-AAsurface border border-AAborder hover:border-AAborder-strong rounded-lg px-3 py-2 transition-colors"
                       >
                         {q}
                       </button>
@@ -185,24 +247,24 @@ export default function AskAI() {
                   </div>
                 </div>
               ) : (
-                messages.map((msg) => (
+                messages.map((m) => (
                   <motion.div
-                    key={msg.id}
-                    initial={{ opacity: 0, y: 10 }}
+                    key={m.id}
+                    initial={{ opacity: 0, y: 6 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.2 }}
-                    className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
+                    transition={{ duration: 0.18 }}
+                    className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}
                   >
                     <div
-                      className={`max-w-[85%] sm:max-w-[80%] px-3 sm:px-4 py-2 rounded-lg ${
-                        msg.role === 'user'
-                          ? 'bg-AAsecondary text-AAprimary'
-                          : 'bg-AAprimary text-gray-300 border border-gray-700'
+                      className={`max-w-[85%] px-3.5 py-2.5 rounded-2xl text-sm leading-relaxed ${
+                        m.role === "user"
+                          ? "bg-AAtext text-AAprimary rounded-br-md"
+                          : "bg-AAsurface text-AAtext border border-AAborder rounded-bl-md"
                       }`}
                     >
-                      <p className="text-xs sm:text-sm whitespace-pre-wrap break-words">{msg.content}</p>
-                      <p className="text-xs opacity-50 mt-1">
-                        {msg.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                      <p className="whitespace-pre-wrap break-words">{m.content}</p>
+                      <p className={`text-[10px] font-mono mt-1.5 ${m.role === "user" ? "opacity-60" : "text-AAmuted"}`}>
+                        {formatTime(m.timestamp)}
                       </p>
                     </div>
                   </motion.div>
@@ -210,56 +272,56 @@ export default function AskAI() {
               )}
 
               {loading && (
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  className="flex justify-start"
-                >
-                  <div className="bg-AAprimary text-gray-300 px-4 py-2 rounded-lg border border-gray-700">
-                    <div className="flex space-x-2">
-                      <div className="w-2 h-2 bg-AAsecondary rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
-                      <div className="w-2 h-2 bg-AAsecondary rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
-                      <div className="w-2 h-2 bg-AAsecondary rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                <div className="flex justify-start">
+                  <div className="bg-AAsurface text-AAtext border border-AAborder rounded-2xl rounded-bl-md px-4 py-3">
+                    <div className="flex gap-1.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-AAmuted animate-pulse" style={{ animationDelay: "0ms" }} />
+                      <span className="w-1.5 h-1.5 rounded-full bg-AAmuted animate-pulse" style={{ animationDelay: "150ms" }} />
+                      <span className="w-1.5 h-1.5 rounded-full bg-AAmuted animate-pulse" style={{ animationDelay: "300ms" }} />
                     </div>
                   </div>
-                </motion.div>
-              )}
-
-              {error && (
-                <div className="text-center text-AAError text-xs py-2">
-                  {error}
                 </div>
               )}
 
-              <div ref={messagesEndRef} />
+              {error && (
+                <p className="text-center text-AAError text-xs font-mono py-1">{error}</p>
+              )}
+
+              <div ref={endRef} />
             </div>
 
-            {/* Input Area */}
-            <div className="border-t border-gray-700 px-3 sm:px-4 py-2.5 sm:py-3 bg-AAprimary rounded-b-lg">
-              <div className="flex space-x-2">
+            {/* Input */}
+            <div className="border-t border-AAborder p-3 bg-AAprimary">
+              <div className="flex items-center gap-2 bg-AAsurface/60 border border-AAborder focus-within:border-AAborder-strong rounded-xl pl-3.5 pr-1.5 h-11 transition-colors">
                 <input
                   ref={inputRef}
                   type="text"
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
-                  onKeyDown={handleKeyPress}
-                  placeholder="Ask about experience..."
+                  onKeyDown={onKey}
+                  placeholder="Ask me something…"
                   disabled={loading}
-                  className="flex-1 bg-AAtertiary text-gray-300 placeholder-gray-500 border border-gray-700 rounded px-2 sm:px-3 py-2 text-xs sm:text-sm focus:outline-none focus:border-AAsecondary transition-colors disabled:opacity-50"
+                  className="flex-1 min-w-0 h-full bg-transparent text-AAtext placeholder-AAmuted text-sm leading-none outline-none disabled:opacity-50"
                 />
                 <button
-                  onClick={() => handleAsk()}
+                  onClick={() => ask()}
                   disabled={!input.trim() || loading}
-                  className="bg-AAsecondary hover:bg-opacity-90 text-AAprimary px-3 sm:px-4 py-2 rounded font-medium text-sm transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex-shrink-0"
+                  aria-label="Send"
+                  className="flex-shrink-0 w-8 h-8 rounded-lg bg-AAtext text-AAprimary inline-flex items-center justify-center disabled:opacity-30 disabled:cursor-not-allowed hover:opacity-90 transition-opacity"
                 >
-                  <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="22" y1="2" x2="11" y2="13" />
+                    <polygon points="22 2 15 22 11 13 2 9 22 2" />
                   </svg>
                 </button>
               </div>
+              <p className="font-mono text-[10px] tracking-wider text-AAmuted text-center mt-2">
+                Press Enter to send · first load downloads the model
+              </p>
             </div>
-        </motion.div>
-      )}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 }

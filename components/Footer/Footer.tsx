@@ -1,46 +1,33 @@
 import React from "react";
 import GithubIcon from "../Icons/GithubIcon";
 import LinkedinIcon from "../Icons/LinkedinIcon";
-import InstagramIcon from "../Icons/InstagramIcon";
-import YoutubeIcon from "../Icons/YoutubeIcon";
-const ClickableIcon = props => {
-  return (
-    <a href={props.href} className="" target={"_blank"} rel="noreferrer">
-      <props.Icon className={"w-5 h-5 text-gray-400 hover:text-AAsecondary fill-current hover:cursor-pointer"} />
-    </a>
-  );
-};
-const IconsData = [
-  { href: "https://github.com/sandydasari", Icon: GithubIcon },
-  { href: "https://www.linkedin.com/in/dasari-sandhya-rani/", Icon: LinkedinIcon },
- 
-  
+
+const socialLinks = [
+  { href: "https://github.com/sandydasari", Icon: GithubIcon, label: "GitHub" },
+  { href: "https://www.linkedin.com/in/dasari-sandhya-rani/", Icon: LinkedinIcon, label: "LinkedIn" },
 ];
 
-export default function Fotter(props: { githubUrl: string; hideSocialsInDesktop: boolean }) {
+export default function Footer(props: { githubUrl: string; hideSocialsInDesktop: boolean }) {
   return (
-    <div className="bg-AAprimary flex flex-col justify-center items-center py-8 space-y-4">
-      {/* // ? Reach me at */}
-      <div className={`flex flex-row space-x-8 ${props.hideSocialsInDesktop ? "lg:hidden" : ""}`}>
-        {IconsData.map((iconData, index) => {
-          return <ClickableIcon key={index} href={iconData.href} Icon={iconData.Icon} />;
-        })}
+    <footer className="bg-AAprimary border-t border-AAborder flex flex-col items-center justify-center py-10 space-y-5">
+      <div className={`flex flex-row gap-6 ${props.hideSocialsInDesktop ? "lg:hidden" : ""}`}>
+        {socialLinks.map(({ href, Icon, label }) => (
+          <a key={label} href={href} target="_blank" rel="noreferrer" aria-label={label}>
+            <Icon className="w-5 h-5 text-AAmuted hover:text-AAsecondary fill-current transition-colors duration-200" />
+          </a>
+        ))}
       </div>
-      <a href={props.githubUrl} className="" target={"_blank"} rel="noreferrer">
-        <div
-          className="group flex flex-col font-mono justify-center items-center  text-gray-400 
-    text-sm  space-y-2  "
-        >
-          <span className="group-hover:text-AAsecondary sm:text-sm text-xs">
-            Built by Dasari Sandhya Rani
+      <a href={props.githubUrl} target="_blank" rel="noreferrer">
+        <div className="group flex flex-col items-center gap-1.5">
+          <span className="font-mono text-xs text-AAmuted group-hover:text-AAtext transition-colors duration-200">
+            Designed &amp; Built by Dasari Sandhya Rani
           </span>
-
-          <span className="text-xs flex flex-row items-center space-x-2 group-hover:text-AAsecondary">
-            <GithubIcon className={"w-4 h-4 text-gray-400 fill-current group-hover:text-AAsecondary"} />
-            <span className="">Source code - Github</span>
-          </span>
+          <div className="flex items-center gap-1.5 text-AAmuted group-hover:text-AAsecondary transition-colors duration-200">
+            <GithubIcon className="w-3.5 h-3.5 fill-current" />
+            <span className="font-mono text-[10px] tracking-wider">Source — GitHub</span>
+          </div>
         </div>
       </a>
-    </div>
+    </footer>
   );
 }

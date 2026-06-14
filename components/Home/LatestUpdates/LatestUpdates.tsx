@@ -1,224 +1,141 @@
 import React, { useState, forwardRef } from "react";
 import { motion } from "framer-motion";
-import ArrowIcon from "../../Icons/ArrowIcon";
+
+const achievements = [
+  {
+    id: 1,
+    label: "Award",
+    title: "ANZ Hackfest 2023 Winner",
+    team: "The 7th Sense Team",
+    date: "2023",
+    description:
+      "Emerged as winners with our game-changing chatbot that revolutionized how ANZers work with internal communication tools. Built a workable proof of concept using OpenAI API and GCP integration.",
+    image: "/img/hackfest.jpg",
+    tech: ["OpenAI API", "GCP", "Jira", "Confluence", "LLMs"],
+  },
+  {
+    id: 2,
+    label: "Academic",
+    title: "State First Ranker",
+    team: "Academic Excellence",
+    date: "+2 Grade",
+    description:
+      "Achieved state first rank during +2 grade, demonstrating exceptional academic performance and dedication to learning. This achievement laid the foundation for my technical journey.",
+    image: "/img/state-first-ranker.png",
+    tech: ["Mathematics", "Physics", "Chemistry"],
+  },
+];
 
 const LatestUpdates = forwardRef<HTMLDivElement>((props, ref) => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const current = achievements[currentIndex];
 
-  const achievements = [
-    {
-      id: 1,
-      title: "ANZ Hackfest 2023 Winner 🏆",
-      team: "The 7th Sense Team",
-      date: "2023",
-      description: "Emerged as winners with our game-changing chatbot that revolutionized how ANZers work with internal communication tools. Built a workable proof of concept using OpenAI API and GCP integration.",
-      image: "/img/hackfest.jpg",
-      techStack: ["OpenAI API", "GCP", "Jira Integration", "Confluence", "LLMs", "GenAI"],
-      tags: ["#ANZBengaluru", "#ANZHACKFEST2024", "#Wherebigthingshappen", "#GenAI"]
-    },
-    {
-      id: 2,
-      title: "State First Ranker 🥇",
-      team: "Academic Excellence",
-      date: "+2 Grade",
-      description: "Achieved state first rank during +2 grade, demonstrating exceptional academic performance and dedication to learning. This achievement laid the foundation for my technical journey.",
-      image: "/img/state-first-ranker.png",
-      techStack: ["Mathematics", "Physics", "Chemistry", "Academic Excellence"],
-      tags: ["#StateFirst", "#AcademicExcellence", "#FoundationOfSuccess"]
-    }
-  ];
-
-  const nextSlide = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % achievements.length);
-  };
-
-  const prevSlide = () => {
-    setCurrentIndex((prevIndex) => (prevIndex - 1 + achievements.length) % achievements.length);
-  };
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        duration: 0.6
-      }
-    }
-  };
+  const next = () => setCurrentIndex((i) => (i + 1) % achievements.length);
+  const prev = () => setCurrentIndex((i) => (i - 1 + achievements.length) % achievements.length);
 
   return (
-    <div ref={ref} id="latestUpdatesSection" data-aos="fade-up" className="snap-start flex flex-col items-center py-20 bg-AAprimary">
-      <div className="flex flex-col space-y-8 px-4 sm:px-0 w-full sm:w-[500px] md:w-[700px] lg:w-[900px] xl:w-[1200px]">
-        
+    <div
+      ref={ref}
+      id="latestUpdatesSection"
+      data-aos="fade-up"
+      className="flex flex-col items-center py-28 bg-AAprimary"
+    >
+      <div className="w-full max-w-4xl px-4 md:px-0">
         {/* Section Header */}
-        <motion.div 
-          className="flex flex-row items-center"
-          variants={itemVariants}
-          initial="hidden"
-          animate="visible"
-        >
-          <div className="flex flex-row items-center mr-4">
-            <ArrowIcon className={"flex-none h-4 md:h-6 w-4 md:w-5 translate-y-[0.5px] text-AAsecondary"} />
-            <span className="text-AAsecondary font-Header text-sm sm:text-xl"> 01.</span>
-            <span className="flex-none text-gray-200 opacity-85 font-bold tracking-wider text-lg sm:text-2xl pl-4">
-              Latest Updates & Achievements
-            </span>
-          </div>
-          <div className="bg-gray-400 h-[0.2px] w-full sm:w-72 ml-4"></div>
-        </motion.div>
-
-        {/* Horizontal Slider with Navigation */}
-        <div className="relative w-full">
-          {/* Navigation Arrows */}
-          <button
-            onClick={prevSlide}
-            className="absolute left-0 top-1/2 -translate-y-1/2 z-20 p-3 bg-gray-800/80 hover:bg-gray-700/90 rounded-full shadow-lg shadow-AAsecondary/30 hover:shadow-AAsecondary/50 transition-all duration-300 group"
-          >
-            <svg 
-              className="w-5 h-5 text-gray-300 group-hover:text-AAsecondary transform rotate-180" 
-              fill="none" 
-              stroke="currentColor" 
-              viewBox="0 0 24 24"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-          </button>
-
-          <button
-            onClick={nextSlide}
-            className="absolute right-0 top-1/2 -translate-y-1/2 z-20 p-3 bg-gray-800/80 hover:bg-gray-700/90 rounded-full shadow-lg shadow-AAsecondary/30 hover:shadow-AAsecondary/50 transition-all duration-300 group"
-          >
-            <svg 
-              className="w-5 h-5 text-gray-300 group-hover:text-AAsecondary" 
-              fill="none" 
-              stroke="currentColor" 
-              viewBox="0 0 24 24"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-          </button>
-
-          {/* Slider Container */}
-          <div className="mx-12 overflow-hidden rounded-xl">
-            <motion.div 
-              className="flex transition-transform duration-500 ease-in-out"
-              style={{ transform: `translateX(-${currentIndex * 100}%)` }}
-            >
-              {achievements.map((achievement, index) => (
-                <div key={achievement.id} className="w-full flex-shrink-0">
-                  <div className="relative bg-gradient-to-br from-gray-900 to-gray-800 rounded-xl overflow-hidden shadow-2xl shadow-AAsecondary/20 hover:shadow-AAsecondary/40 transition-all duration-300 group">
-                    
-                    {/* Glowing Effect */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-AAsecondary/10 to-yellow/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    
-                    <div className="flex flex-col lg:flex-row">
-                      {/* Image Section */}
-                      <div className="lg:w-1/3 relative">
-                        <div className="aspect-video lg:aspect-square relative overflow-hidden">
-                          <img 
-                            src={achievement.image}
-                            alt={achievement.title}
-                            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                          />
-                          
-                          {/* Achievement Badge */}
-                          <div className="absolute top-4 right-4">
-                            <motion.div
-                              animate={{ rotate: [0, 5, -5, 0] }}
-                              transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
-                              className="inline-flex items-center px-3 py-1 bg-yellow/90 backdrop-blur-sm rounded-full shadow-lg shadow-yellow/30"
-                            >
-                              {achievement.id === 1 ? "🏆" : "🥇"}
-                            </motion.div>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Content Section */}
-                      <div className="lg:w-2/3 p-6 md:p-8 relative z-10">
-                        {/* Header */}
-                        <div className="mb-4">
-                          <h3 className="text-xl md:text-2xl font-bold text-white mb-4">
-                            {achievement.title}
-                          </h3>
-                        </div>
-
-                        {/* Description */}
-                        <p className="text-gray-200 leading-relaxed mb-6 text-sm md:text-base">
-                          {achievement.description}
-                        </p>
-
-                        {/* Tech Stack */}
-                        <div className="flex flex-wrap gap-2">
-                          {achievement.techStack.slice(0, 6).map((tech, idx) => (
-                            <div 
-                              key={idx}
-                              className="px-3 py-1 bg-AAsecondary/20 rounded-full text-AAsecondary text-xs font-mono shadow-sm shadow-AAsecondary/20 hover:shadow-AAsecondary/40 hover:bg-AAsecondary/30 transition-all duration-200"
-                            >
-                              {tech}
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </motion.div>
-          </div>
-
-          {/* Slide Indicators */}
-          <div className="flex justify-center mt-6 space-x-2">
-            {achievements.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setCurrentIndex(index)}
-                className={`h-2 rounded-full transition-all duration-300 shadow-sm ${
-                  index === currentIndex 
-                    ? 'bg-AAsecondary w-8 shadow-AAsecondary/50' 
-                    : 'bg-gray-600 hover:bg-gray-500 w-2 hover:shadow-gray-500/30'
-                }`}
-              />
-            ))}
-          </div>
+        <div className="flex flex-row items-center mb-16">
+          <span className="text-AAsecondary font-mono text-sm mr-3">02.</span>
+          <span className="text-AAtext font-semibold tracking-wide text-xl md:text-2xl mr-6">
+            Latest Updates
+          </span>
+          <div className="flex-1 h-px bg-AAborder max-w-xs"></div>
         </div>
 
-        {/* Call to Action */}
-        <motion.div
-          variants={itemVariants}
-          className="text-center pt-8"
-        >
-          <div className="inline-flex flex-col items-center space-y-4">
-            <p className="text-gray-400 text-sm md:text-base max-w-2xl leading-relaxed">
-              These achievements represent my commitment to innovation, collaboration, and delivering impactful solutions. 
-              Always excited to take on new challenges and create meaningful technology experiences.
-            </p>
-            <div className="flex items-center space-x-2 text-AAsecondary">
-              <span className="text-sm font-mono">More updates coming soon...</span>
-              <motion.div
-                animate={{ scale: [1, 1.2, 1] }}
-                transition={{ duration: 2, repeat: Infinity }}
-                className="w-2 h-2 bg-AAsecondary rounded-full"
-              />
+        {/* Slider */}
+        <div className="relative">
+          <motion.div
+            key={currentIndex}
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.35 }}
+            className="bg-AAsurface border border-AAborder rounded-lg overflow-hidden"
+          >
+            <div className="flex flex-col lg:flex-row">
+              {/* Image */}
+              <div className="lg:w-2/5 relative overflow-hidden bg-AAprimary">
+                <img
+                  src={current.image}
+                  alt={current.title}
+                  className="w-full h-56 lg:h-full object-cover opacity-80"
+                />
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent to-AAsurface hidden lg:block" />
+                <span className="absolute top-4 left-4 bg-AAprimary/90 border border-AAborder text-AAsecondary text-xs font-mono px-2.5 py-1 rounded uppercase tracking-wider">
+                  {current.label}
+                </span>
+              </div>
+
+              {/* Content */}
+              <div className="flex-1 p-8 flex flex-col justify-between">
+                <div>
+                  <p className="text-AAmuted font-mono text-xs tracking-widest uppercase mb-3">
+                    {current.date} · {current.team}
+                  </p>
+                  <h3 className="text-AAtext font-semibold text-2xl mb-4">{current.title}</h3>
+                  <p className="text-AAmuted text-sm leading-relaxed">{current.description}</p>
+                </div>
+
+                <div className="mt-6">
+                  <div className="flex flex-wrap gap-2">
+                    {current.tech.map((t, i) => (
+                      <span
+                        key={i}
+                        className="text-xs font-mono text-AAsecondary bg-AAsecondary/10 border border-AAsecondary/20 px-2.5 py-1 rounded"
+                      >
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Navigation */}
+          <div className="flex items-center justify-between mt-6">
+            <div className="flex gap-2">
+              {achievements.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setCurrentIndex(i)}
+                  className={`h-1 rounded-full transition-all duration-300 ${
+                    i === currentIndex ? "bg-AAsecondary w-8" : "bg-AAborder w-4 hover:bg-AAmuted"
+                  }`}
+                />
+              ))}
+            </div>
+            <div className="flex gap-2">
+              <button
+                onClick={prev}
+                className="w-9 h-9 rounded border border-AAborder flex items-center justify-center text-AAmuted hover:text-AAtext hover:border-AAsecondary/40 transition-all duration-200"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 19l-7-7 7-7" />
+                </svg>
+              </button>
+              <button
+                onClick={next}
+                className="w-9 h-9 rounded border border-AAborder flex items-center justify-center text-AAmuted hover:text-AAtext hover:border-AAsecondary/40 transition-all duration-200"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
     </div>
   );
 });
 
-LatestUpdates.displayName = 'LatestUpdates';
-
+LatestUpdates.displayName = "LatestUpdates";
 export default LatestUpdates;

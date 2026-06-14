@@ -15,7 +15,7 @@ const IconClickableWithAnimation = props => {
       className=""
     >
       <a href={props.href} className="" target={"_blank"} rel="noreferrer">
-        <props.Icon className={"w-6 h-6 text-gray-400 hover:text-AAsecondary fill-current hover:cursor-pointer"} />
+        <props.Icon className={"w-5 h-5 text-AAmuted hover:text-AAsecondary fill-current hover:cursor-pointer transition-colors duration-200"} />
       </a>
     </motion.div>
   );
@@ -40,7 +40,7 @@ export default function SocialMediaEmail(props: { finishedLoading: boolean }) {
             {/* Youtube Icon */}
 
           </div>
-          <div className="h-28 w-0.5 bg-gray-400"></div>
+          <div className="h-28 w-px bg-AAborder"></div>
         </div>
       </motion.div>
 
@@ -63,13 +63,13 @@ export default function SocialMediaEmail(props: { finishedLoading: boolean }) {
             className=""
           >
             <a href="mailto:sandydasari977@gmail.com" target={"_blank"} rel="noreferrer">
-              <span className=" font-Header tracking-wider text-gray-400 hover:text-AAsecondary hover:cursor-pointer">
-                sandydasari977<span className="text-AAsecondary">@</span>gmail<span className="text-AAsecondary">.</span>com
+              <span className="font-mono text-xs tracking-wider text-AAmuted hover:text-AAsecondary hover:cursor-pointer transition-colors duration-200">
+                sandydasari977@gmail.com
               </span>
             </a>
           </motion.div>
 
-          <div className="h-24 w-0.5 bg-gray-400"></div>
+          <div className="h-24 w-px bg-AAborder"></div>
         </div>
       </motion.div>
     </>

@@ -1,131 +1,63 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Link as ReactScrollLink } from "react-scroll";
+import NextLink from "next/link";
+
+const navItems = [
+  { to: "BlogSection", label: "Blog", num: "01", offset: -100, external: "/blog" as string | null },
+  { to: "latestUpdatesSection", label: "Latest", num: "02", offset: -100, external: null },
+  { to: "WhereIhaveWorkedSection", label: "Experience", num: "03", offset: -300, external: null },
+  { to: "SomethingIveBuiltSection", label: "Work", num: "04", offset: -100, external: null },
+  { to: "ResearchSection", label: "Research", num: "05", offset: -100, external: null },
+  { to: "GetInTouchSection", label: "Contact", num: "06", offset: -100, external: null },
+];
 
 export default function DesktopMenu(props: { finishedLoading: boolean }) {
   return (
-    <div className="font-mono text-xs md:flex hidden flex-row items-center space-x-8 ">
-      <motion.div
-        initial={{
-          y: -40,
-          opacity: 0,
-        }}
-        animate={{
-          y: 0,
-          opacity: 1,
-        }}
-        transition={{
-          type: "spring",
-          duration: props.finishedLoading ? 0 : 1.2,
-          delay: props.finishedLoading ? 0 : 9.4,
-        }}
-        className=" text-AAsecondary"
-       
-      >
-        <ReactScrollLink to="latestUpdatesSection" spy={true} smooth={true} offset={-100} duration={200}>
-          &gt; 01. <span className="text-white hover:cursor-pointer hover:text-AAsecondary duration-300">Latest</span>
-        </ReactScrollLink>
-      </motion.div>
-      <motion.div
-        initial={{
-          y: -40,
-          opacity: 0,
-        }}
-        animate={{
-          y: 0,
-          opacity: 1,
-        }}
-        transition={{
-          type: "spring",
-          duration: props.finishedLoading ? 0 : 1.2,
-          delay: props.finishedLoading ? 0 : 9.7,
-        }}
-        className="text-AAsecondary"
-       
-      >
-        <ReactScrollLink to="WhereIhaveWorkedSection" spy={true} smooth={true} offset={-300} duration={200}>
-          &gt; 02.{" "}
-          <span className="text-white  hover:cursor-pointer hover:text-AAsecondary duration-300">Experience</span>
-        </ReactScrollLink>
-      </motion.div>
-      <motion.div
-        initial={{
-          y: -40,
-          opacity: 0,
-        }}
-        animate={{
-          y: 0,
-          opacity: 1,
-        }}
-        transition={{
-          type: "spring",
-          duration: props.finishedLoading ? 0 : 1.2,
-          delay: props.finishedLoading ? 0 : 9.8,
-        }}
-        className="text-AAsecondary"
-      >
-        <ReactScrollLink to="SomethingIveBuiltSection" spy={true} smooth={true} offset={-100} duration={200}>
-        &gt; 03. <span className="text-white  hover:cursor-pointer hover:text-AAsecondary duration-300">Work</span>
+    <div className="font-mono text-xs md:flex hidden flex-row items-center space-x-7">
+      {navItems.map((item, i) => {
+        const inner = (
+          <span className="text-AAmuted hover:cursor-pointer hover:text-AAtext transition-colors duration-200 tracking-widest uppercase text-[10px]">
+            <span className="text-AAsecondary mr-1.5">{item.num}.</span>
+            {item.label}
+          </span>
+        );
+        return (
+          <motion.div
+            key={item.to}
+            initial={{ y: -30, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{
+              type: "spring",
+              duration: props.finishedLoading ? 0 : 1.2,
+              delay: props.finishedLoading ? 0 : 9.4 + i * 0.15,
+            }}
+          >
+            {item.external ? (
+              <NextLink href={item.external}>{inner}</NextLink>
+            ) : (
+              <ReactScrollLink to={item.to} spy smooth offset={item.offset} duration={200}>
+                {inner}
+              </ReactScrollLink>
+            )}
+          </motion.div>
+        );
+      })}
 
-        </ReactScrollLink>
-        
-      </motion.div>
-      <motion.div
-          initial={{ y: -40, opacity: 0 }}
+      <a href="/sandy_ai_leo.pdf" target="_blank" rel="noreferrer">
+        <motion.button
+          initial={{ y: -30, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{
             type: "spring",
             duration: props.finishedLoading ? 0 : 1.2,
-            delay: props.finishedLoading ? 0 : 9.9,
+            delay: props.finishedLoading ? 0 : 10.2,
           }}
-          className="text-AAsecondary"
+          className="text-AAsecondary border border-AAsecondary/40 py-1.5 px-4 rounded text-[10px] tracking-widest uppercase hover:bg-AAsecondary/10 transition-all duration-200"
         >
-          <ReactScrollLink to="ResearchSection" spy={true} smooth={true} offset={-100} duration={200}>
-            &gt; 04. <span className="text-white hover:cursor-pointer hover:text-AAsecondary duration-300">Research</span>
-          </ReactScrollLink>
-        </motion.div>
-      <motion.span
-        initial={{
-          y: -40,
-          opacity: 0,
-        }}
-        animate={{
-          y: 0,
-          opacity: 1,
-        }}
-        transition={{
-          type: "spring",
-          duration: props.finishedLoading ? 0 : 1.2,
-          delay: props.finishedLoading ? 0 : 10,
-        }}
-        className="text-AAsecondary"
-      >
-         <ReactScrollLink to="GetInTouchSection" spy={true} smooth={true} offset={-100} duration={200}>
-         &gt; 05. <span className="text-white  hover:cursor-pointer hover:text-AAsecondary duration-300">Contact</span>
-        </ReactScrollLink>
-      </motion.span>
-      <a href={"/sandy_ai_leo.pdf"} target={"_blank"} rel="noreferrer">
-      <motion.button
-        initial={{
-          y: -40,
-          opacity: 0,
-        }}
-        animate={{
-          y: 0,
-          opacity: 1,
-        }}
-        transition={{
-          type: "spring",
-          duration: props.finishedLoading ? 0 : 1.2,
-          delay: props.finishedLoading ? 0 : 10.2,
-        }}
-        // onClick={()=>{router.push("/sandy_resume.pdf")}}
-        className="text-AAsecondary border border-spacing-2 py-2 px-3 rounded-sm border-white hover:bg-ResumeButtonHover"
-      >
-        Resume
-      </motion.button>
+          Resume
+        </motion.button>
       </a>
-      
     </div>
   );
 }

@@ -1,0 +1,24 @@
+---
+title: "Notes on Scaling Neural Networks: Lessons from IIT Bombay"
+description: "What I took away from research on optimization and scaling — and where the textbook intuitions break."
+date: "2026-04-10"
+tags: ["Research", "Optimization", "Deep Learning"]
+author: "Sandy Dasari"
+---
+
+During my time at IIT Bombay I worked on neural network optimization and scaling. A few things I expected from papers turned out to be true; a few did not.
+
+## What held up
+
+- **Learning-rate schedules matter more than architecture tweaks** at moderate scale.
+- **Batch size is a regularizer**, and the "linear scaling rule" is a reasonable starting point but rarely the final answer.
+- Mixed precision is essentially free once you stop fighting NaNs.
+
+## What surprised me
+
+- The gap between "trains" and "trains well" is wider than the literature suggests. Two runs with identical hyperparameters can diverge late in training based on data ordering alone.
+- Implicit regularization from SGD is real but fragile. Switching optimizers mid-run usually punishes you.
+
+## A practical heuristic
+
+If you're scaling a model and unsure where to invest engineering time, instrument loss curves at multiple resolutions before changing anything. Most "we need a bigger model" decisions reverse once you can see what's actually happening in the first 5% of training.
