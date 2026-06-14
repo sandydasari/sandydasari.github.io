@@ -40,13 +40,16 @@ const mdxComponents = {
     <pre className="font-mono text-[13px] bg-AAsurface text-AAtext p-5 rounded border border-AAborder my-6 overflow-x-auto leading-relaxed" {...p} />
   ),
   hr: () => <hr className="border-AAborder my-12" />,
+  img: (p: any) => (
+    <img className="w-full rounded-lg border border-AAborder my-8" loading="lazy" {...p} />
+  ),
 };
 
 export default function BlogPost({ meta, source }: Props) {
   return (
     <>
       <Head>
-        <title>{`${meta.title} — ${profile.name}`}</title>
+        <title>{`${meta.title} · ${profile.name}`}</title>
         <meta name="description" content={meta.description} />
         <meta property="og:title" content={meta.title} />
         <meta property="og:description" content={meta.description} />
@@ -56,7 +59,7 @@ export default function BlogPost({ meta, source }: Props) {
       <div className="min-h-screen bg-AAprimary text-AAtext">
         <header className="sticky top-0 z-20 bg-AAprimary/80 backdrop-blur-md border-b border-AAborder">
           <div className="max-w-3xl mx-auto px-5 py-3.5 flex items-center justify-between">
-            <Link href="/" className="font-medium text-[14px] text-AAtext tracking-tight">{profile.name}</Link>
+            <Link href="/" className="font-medium text-[14px] text-AAtext tracking-tight uppercase">{profile.name}</Link>
             <nav className="flex items-center gap-1">
               <Link href="/blog" className="text-AAmuted hover:text-AAtext text-[13px] px-2.5 py-1 rounded-lg hover:bg-AAsurface transition-colors">← All posts</Link>
               <ThemeToggle />
@@ -102,7 +105,7 @@ export default function BlogPost({ meta, source }: Props) {
           <Comments mapping="pathname" />
 
           <div className="mt-16 pt-8 border-t border-AAborder font-mono text-[11px] tracking-wider text-AAmuted flex items-center justify-between">
-            <span>— {meta.author}</span>
+            <span>- {meta.author}</span>
             <Link href="/blog" className="hover:text-AAtext transition-colors">← all posts</Link>
           </div>
         </main>

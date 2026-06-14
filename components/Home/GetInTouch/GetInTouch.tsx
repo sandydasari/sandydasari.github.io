@@ -13,7 +13,7 @@ export default function GetInTouch() {
       </h2>
       <p className="text-AAmuted text-center text-sm leading-relaxed max-w-md mb-10">
         I&apos;m currently open to new opportunities. Whether you have a question,
-        a project in mind, or just want to say hello — my inbox is always open.
+        a project in mind, or just want to say hello, my inbox is always open.
       </p>
       <a href="mailto:sandydasari977@gmail.com" target="_blank" rel="noreferrer">
         <button className="group flex items-center gap-2.5 border border-AAsecondary text-AAsecondary text-sm font-mono tracking-widest uppercase px-8 py-4 rounded hover:bg-AAsecondary/10 transition-all duration-200">

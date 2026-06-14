@@ -54,7 +54,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 export const useTheme = () => useContext(ThemeContext);
 
 /**
- * Inline script — runs before paint to set theme class and avoid FOUC.
+ * Inline script - runs before paint to set theme class and avoid FOUC.
  * Drop into _document.tsx <Head>.
  */
 export const themeInitScript = `

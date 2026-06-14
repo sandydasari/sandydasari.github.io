@@ -33,12 +33,12 @@ export default function Subscribe() {
     <div className="border border-AAborder rounded-2xl bg-AAsurface/40 p-5 sm:p-6">
       <h3 className="font-serif text-lg font-medium text-AAtext tracking-tight">Subscribe</h3>
       <p className="text-AAmuted text-[13px] leading-relaxed mt-1.5 max-w-sm">
-        New writing on AI agents — what works, what breaks, the tricks that failed and the ones
-        that stuck — straight to your inbox. No spam, no scams, no selling your email. Unsubscribe anytime.
+        New writing on AI agents: what works, what breaks, the tricks that failed and the ones
+        that stuck, straight to your inbox. No spam, no scams, no selling your email. Unsubscribe anytime.
       </p>
 
       {done ? (
-        <p className="mt-4 text-[13px] text-AAtext font-medium">Thanks — you're on the list.</p>
+        <p className="mt-4 text-[13px] text-AAtext font-medium">Thanks, you're on the list.</p>
       ) : (
         <form onSubmit={onSubmit} className="mt-4 flex flex-col sm:flex-row gap-2">
           <input

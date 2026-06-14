@@ -25,7 +25,7 @@ export async function generateResponse(
     const contextText = context
       .map((item, idx) => {
         let header = `[${idx + 1}] ${item.section}`;
-        if (item.company) header += ` - ${item.company}`;
+        if (item.company) header += `, ${item.company}`;
         if (item.role) header += ` (${item.role})`;
         if (item.date) header += ` ${item.date}`;
         return `${header}\n${item.text}`;

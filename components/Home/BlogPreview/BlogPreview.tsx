@@ -51,7 +51,7 @@ export default function BlogPreview({ posts }: Props) {
           </Link>
         </div>
 
-        {/* Posts grid — Vercel/Notion-style cards */}
+        {/* Posts grid - Vercel/Notion-style cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
           {visible.map((post, idx) => (
             <Link

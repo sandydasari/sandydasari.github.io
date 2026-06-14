@@ -24,7 +24,7 @@ export default function ImageGallery({ images, alt }: Props) {
       <div className="relative aspect-[16/10] bg-AAsurface rounded-lg overflow-hidden group border border-AAborder">
         <img
           src={images[current]}
-          alt={`${alt} — ${current + 1}`}
+          alt={`${alt} ${current + 1}`}
           className="absolute inset-0 w-full h-full object-cover"
         />
 

@@ -31,7 +31,7 @@ export default function ANZ () {
             Software Engineer <span className="text-AAsecondary">@ Golang Developer</span>
           </span>
           {/* Date */}
-          <span className="font-mono text-xs text-gray-500">Jun 2023 - Present</span>
+          <span className="font-mono text-xs text-gray-500">Jun 2023 to Present</span>
           <span
             className="font-mono text-xs text-AAsecondary hover:cursor-pointer"
             style={{ fontSize: "0.6rem" }}

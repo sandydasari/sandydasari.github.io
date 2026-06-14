@@ -1,5 +1,5 @@
 /**
- * AskAI Chat Widget — polished, theme-aware.
+ * AskAI Chat Widget - polished, theme-aware.
  * In-browser Q&A over portfolio content via local vector search + LLM utils.
  */
 
@@ -78,7 +78,7 @@ export default function AskAI() {
       ]);
     } catch (err) {
       console.error("AskAI error:", err);
-      setError("Sorry — I hit an error answering that. Try rephrasing.");
+      setError("Sorry, I hit an error answering that. Try rephrasing.");
       setMessages((p) => [
         ...p,
         {
@@ -104,9 +104,9 @@ export default function AskAI() {
 
   return (
     <>
-      {/* Floating launcher — visibly AI: gradient orb + pill label + pulsing aura */}
+      {/* Floating launcher - visibly AI: gradient orb + pill label + pulsing aura */}
       <div className="fixed bottom-5 right-5 sm:bottom-6 sm:right-6 z-50 flex items-center gap-2.5">
-        {/* Animated "Ask my AI" pill — hidden when chat is open */}
+        {/* Animated "Ask my AI" pill - hidden when chat is open */}
         <AnimatePresence>
           {!open && (
             <motion.button

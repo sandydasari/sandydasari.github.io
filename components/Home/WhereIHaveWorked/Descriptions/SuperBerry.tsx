@@ -27,7 +27,7 @@ export default function SuperBerry() {
             Software Engineer <span className="text-AAsecondary">@ Web App</span>
           </span>
           {/* Date */}
-          <span className="font-mono text-xs text-gray-500">June - August 2020</span>
+          <span className="font-mono text-xs text-gray-500">June to August 2020</span>
         </div>
         <div className="flex flex-col space-y-4 sm:text-sm text-xs">
           {/* Tasks Description 1 */}

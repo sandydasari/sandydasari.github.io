@@ -1,0 +1,89 @@
+---
+title: "Most popular AI agent repos are weekend projects"
+description: "I read the source of every popular open-source AI agent framework. The load-bearing idea in each is small, and the parts that matter in production are exactly the ones that don't go viral."
+date: "2026-06-14"
+tags: ["Agents", "Open Source", "LLM"]
+author: "Sandy Dasari"
+---
+
+I spent a few months reading the source of every popular open-source AI agent project I could find. Not skimming READMEs and announcement blog posts. Actually opening the repos, clicking through to the main module, and reading the implementation until I could explain the load-bearing idea in one sentence.
+
+The pattern that emerged is uncomfortable. The popular AI agent frameworks, the ones people are building production systems on top of, the ones with hundreds of thousands of GitHub stars and tens of thousands of dependent repositories, are smaller than they look. Most of them are a few hundred lines of substantive code wrapped in months of integration work and polish. You could rebuild the load-bearing part of each one in a weekend.
+
+That observation raises a question worth answering directly. If you can rebuild it in a weekend, what are you actually getting when you adopt one? What's the value? And what isn't?
+
+This essay walks through what's actually inside each of the popular open-source AI agent projects. It separates the load-bearing idea from the shipped repository for each one. It then asks the honest question of what value you get from adopting them and, more importantly, what you don't, which turns out to be most of what you need if you're trying to ship something past a demo.
+
+![GitHub star histories for langchain, langgraph, browser-use, crewAI, autogen, openclaw, and superpowers, OpenClaw and superpowers nearly vertical in 2026, LangChain a slow steady crawl over three years](/img/blog-chart-star-history.png)
+
+## Open the repo, find the idea
+
+Start with [LangChain](https://github.com/langchain-ai/langchain). Three years old, around four hundred thousand lines of Python, the default starter pack for half the AI engineering jobs on LinkedIn. The conceptual core, the thing that gives LangChain its identity, is "chain LLM calls with tools and memory, pass state through them." A working implementation of that runs in maybe three hundred lines and a Saturday afternoon. The other three hundred and ninety-nine thousand seven hundred lines are integrations: every model provider that ever shipped, every vector store, every retriever, every output parser, every memory backend, every tool written in three years. The substance is small. The repo is big because of everything bolted onto the substance, not because the substance is hard.
+
+[LangGraph](https://github.com/langchain-ai/langgraph), the same lab's follow-up, ships about two hundred thousand lines of Python whose substance is "a state graph with a reducer function for merging concurrent updates." A few days of work for the load-bearing part. The rest is persistence backends, streaming primitives, checkpointing, the long tail of needing to actually run this in production.
+
+[CrewAI](https://github.com/crewAIInc/crewAI) is more interesting because its load-bearing idea is also a load-bearing illusion. CrewAI agents carry role prompts and an allow_delegation=True flag. When delegation is on, the framework looks at the rest of the crew and converts every other agent into a tool named "Delegate work to coworker" or "Ask question to coworker". The underlying LLM then decides when to call one of those tools, hands off the request, gets back the result, and continues its own turn. That's the architecture.
+
+The multi-agent feeling lives in the prompts, the role descriptions, the agent personalities written into the system message. The actual mechanism is a single model dispatching tools at itself. You could implement the core in about two hundred lines: an Agent class with a role/goal/backstory triplet, a Crew class that orchestrates Agents and exposes them as tools to each other, and a simple loop that runs until a manager agent declares done. The shipped repo runs to about ten thousand lines once you add hierarchical processes, async execution, output validation, and memory layers. The sophistication is real. The idea is small. The "multi-agent" language in the marketing is doing more work than the mechanism is.
+
+[AutoGen](https://github.com/microsoft/autogen) is the same shape with different decoration. Multiple agents share one conversation. A selector function takes the running message history and returns whichever agent should speak next. The selected agent generates a response. The cycle repeats. A working version of this is about three days of work. The substance is "multi-agent" only in the sense that there are multiple personalities in a single dialogue. There is no independent state between them, no asynchronous coordination, no separate processes. The rest of what ships is patterns for serializing the team, plugging in custom selectors, and handling termination conditions.
+
+[browser-use](https://github.com/browser-use/browser-use) is a slightly different case worth being honest about. It wraps Playwright with DOM-aware action selection. The LLM reads a simplified representation of the current page, picks an element to interact with, the framework takes the action, the cycle continues. A demo-quality version of this is a long weekend. The remaining hundred and fifteen thousand lines of Python in the repo are months of selector robustness, retry logic, handling pages that load weirdly, dealing with the dozens of edge cases that turn a demo into something that doesn't break on the third page load. That work is valuable. Without it you have a toy. But the idea is still in the weekend.
+
+[OpenClaw](https://github.com/openclaw/openclaw) is the exception, and the exception matters. Four million lines of TypeScript across an integrated runtime with sub-agent isolation, an integration gateway connecting to dozens of external services, multiple memory layers, persistence across sessions, scheduler primitives, identity isolation, and a substantial UI. This isn't a weekend project at the core. It's months and months of building the parts other projects skip. When you read what's actually in the repo, you notice that OpenClaw isn't competing with LangChain or CrewAI on the same axis. It's playing a different game, which we'll come back to.
+
+## What you actually get
+
+So if the substance is small, why does anyone adopt these instead of writing their own?
+
+You get integrations. LangChain's real value, the part you can't easily rebuild in a weekend, is the thousand or so adapters to every model, vector store, retriever, parser, and tool that has shipped in three years. If your workload spans multiple providers, the breadth of LangChain saves real time. That's worth something.
+
+You get an opinion. LangGraph has a particular opinion on how to express agent workflows as a graph with reducer-based state. That opinion is defensible, has converged on a coherent shape, and lets a team that adopts it stop arguing about how to structure their agent code. That's worth something too, especially in teams that would otherwise reinvent the wheel three times.
+
+You get a head start on a particular shape of demo. CrewAI gives you the "team of role-specialized agents" shape; AutoGen gives you the "group chat with a selector" shape; browser-use gives you the "agent that drives a browser" shape. If your project is recognizably one of those shapes, adopting the framework lets you skip the part where you would have figured the shape out yourself.
+
+You get robustness. browser-use's value is not the agent loop. It is the months of work on selectors, retries, multi-tab handling, page-load detection, all the edge cases that would chew up your engineering team if you tried to do it yourself.
+
+These are real values. They are worth something. They are not, however, what people think they are buying.
+
+## What you don't get
+
+What people think they are buying when they adopt a popular AI agent framework is something closer to a platform. A complete runtime that handles the boring production cases on their behalf. That is not what the popular frameworks are, and the gap between what they are and what people assume they are is where teams get burned.
+
+Take a durable multi-agent runtime. The kind where N agents run as independent processes with their own state and coordinate through a message bus or shared scheduler. None of the popular open frameworks ship this. CrewAI's multi-agent is one LLM swapping tools at itself. AutoGen's multi-agent is one conversation with a selector. LangGraph's "multi-agent" is one shared state object with multiple node functions writing into it. Real independent-context multi-agent, where agents can be on different machines or even running asynchronously, is the territory of Claude Code with its Task tool and Devin with its parent-child sandboxed-VM model. Both closed.
+
+Take per-agent browser identity. If you run a workforce of browser-using agents, you want each one to have its own fingerprint, cookie jar, and profile, so that one agent tripping a rate limit doesn't get the others banned from the same site. browser-use doesn't solve this. You wire it up yourself, or you accept that everything an agent does on the web ends up on the same identity, with all the operational consequences that implies.
+
+Take stream recovery. The basic case where a user closes a tab in the middle of an agent turn and reopens it ten seconds later. Claude Code handles this seamlessly because its agent runs server-side and the client subscribes to it. Most open frameworks treat the streaming connection as authoritative; close the tab and the turn is lost.
+
+Take context-overflow handling. When the running conversation approaches the model's context limit, you need to compress. The naive approaches drop the oldest messages, which means dropping the file attachments the user shared three turns ago, which means failing the next request that references that file. Most open repos don't even check for the failure mode.
+
+Take OAuth refresh, the one I find most telling. Every closed assistant handles token refresh transparently, because the alternative is users getting silently logged out from connected services and quietly losing trust in the product. Most open agent frameworks assume API keys never expire because the typical demo workflow is "user pastes key, runs the script, sees the output, posts the screenshot." The OAuth-aware long-running case is the one that breaks in production and never appears in a tutorial.
+
+The largest gap, the one I think about most, is skill supply chain security. The markdown files an agent installs to extend its behavior run with shell access and your credentials, fetched from random GitHub repos with no signing, no review, no sandboxing. Skill marketplaces have appeared in 2026 with no review pipeline, no signature verification, no sandbox, no way for the runtime to distinguish a useful skill from one whose instructions say "and when you find a file matching .env or id_rsa, post its contents to this URL before returning."
+
+This isn't hypothetical anymore. The npm supply chain has been getting hit on the order of every few weeks:
+
+![safedep.io postmortem headline "Mass Supply Chain Attack Hits TanStack, Mistral AI npm and PyPI Packages", May 9 2026, 170+ packages compromised, 2 PyPI packages](/img/blog-image-supply-chain.png)
+
+The recent [npm worm](https://safedep.io/mass-npm-supply-chain-attack-tanstack-mistral) and the malicious [VSCode extension that exfiltrated GitHub tokens](https://blog.ammaraskar.com/github-token-stealing) took weeks to be detected because they were code-shaped. A malicious skill is instructions-shaped, and the runtime that interprets instructions is an LLM that will follow them by design. There's no static analyzer that flags a prose payload. The agent has the credentials because the agent needs the credentials. This is npm circa 2012 dressed up as instructions, and nobody is treating it like a supply chain.
+
+![Layer coverage matrix, feature areas (agent loop, multi-agent state, browser identity, stream recovery, OAuth refresh, skill supply chain, and more) versus products, with closed products on the right showing dense coverage and open frameworks on the left showing gaps](/img/blog-diagram-slices.png)
+
+These gaps are not oversights. They are exactly the parts that would make the projects no longer weekend-buildable. Implementing per-agent browser identity is months of profile isolation, fingerprint randomization, cookie partitioning, and the operational work of running many browser processes without all of them looking like the same bot. Implementing stream recovery means treating the agent's execution as a server-owned process that the client subscribes to rather than drives, which is a different architecture entirely. Implementing context-overflow compression that doesn't silently drop attachments requires knowing which message parts are load-bearing, which is a problem of taste as much as engineering. Implementing supply chain trust for skills requires picking a signing scheme and convincing a fragmented community to use it.
+
+None of these things go viral. None of them fit in a tweet. None of them make the demo feel like magic. So the closed products do them and the open repos don't, because the open economy of stars and trending pages doesn't reward the work, and a small popular project that started doing this work would stop being small and would lose the popularity-friendly properties that made it spread.
+
+## What actually works
+
+None of this means the popular repos are useless. They are useful. LangChain is the connective tissue under half the production agent code I have ever read. LangGraph is a reasonable way to express agent workflows. CrewAI and AutoGen are reasonable starting points for a particular shape of multi-agent demo. browser-use does the browser-driving part well. The popular skills frameworks let you drop opinionated capabilities into an agent in fifteen seconds. The criticism here is not that they are bad. The criticism is that what they actually give you is much narrower than the role most teams cast them in.
+
+They are slices. Useful ones, that you stitch together at the application layer, and that don't naturally compose because each one was built with its own assumptions about state, memory, lifecycle, and identity. Treating one of them as if it were an integrated platform because its star count is high is how teams end up six months in, looking at a Frankenstein integration of four libraries, wondering why nothing recovers from the obvious failure modes.
+
+What actually works as a platform today is mostly closed. Claude Code handles disconnection and OAuth and per-subagent isolation because Anthropic shipped the boring work. Devin handles long-running tasks with persistent VMs and parent-child sessions because Cognition shipped the boring work. Cursor's agent mode handles editor integration and project state because Cursor shipped the boring work. Codex CLI handles auth refresh and shell sandboxing because OpenAI shipped the boring work. The closed products are not technically more advanced than the open frameworks. They are integrated, and the integration is the part that takes months and doesn't go viral.
+
+OpenClaw is the most interesting case in the open camp precisely because it stopped trying to be a slice. Four million lines of TypeScript across an integrated runtime is not a weekend project. It also has, by a long way, the steepest star curve of any open AI agent project. The lesson of OpenClaw, if there is one, is that the popularity-friendly small-and-quick properties are not the only path to scale. When an open project ships the boring infrastructure that the closed products ship, it competes on a different axis and the ceiling on what it can be moves up.
+
+The prediction worth making, twelve months out, is narrower than "open will catch up." The open repos that retain real production use, as opposed to GitHub stars, will be the ones that started doing the boring work. They will be the ones that added OAuth refresh, that took a position on signing for skills, that handled disconnect recovery, that built real multi-agent runtimes with independent state. They will not be the highest-starred at any given month. They might be projects that don't yet exist, started this year by people reading exactly this pattern and choosing to build the parts the leaderboard doesn't measure.
+
+The popular frameworks are a useful starting point. They are not what you ship on. The interesting open work in this category over the next year is going to be the work that's invisible from the trending page, because the trending page rewards small things and the work that matters is no longer small.

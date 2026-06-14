@@ -33,7 +33,7 @@ export default function Thoughtworks() {
         ML & Big Data Analytics Internship  <span className="text-AAsecondary">@ AI Internship</span>
         </span>
         {/* Date */}
-        <span className="font-mono text-xs text-gray-500">Dec 2021 - May 2022</span>
+        <span className="font-mono text-xs text-gray-500">Dec 2021 to May 2022</span>
       </div>
       <div className="flex flex-col space-y-4 sm:text-sm text-xs">
       {tasks.map((item, index) => {

@@ -24,7 +24,7 @@ export default function Footer(props: { githubUrl: string; hideSocialsInDesktop:
           </span>
           <div className="flex items-center gap-1.5 text-AAmuted group-hover:text-AAsecondary transition-colors duration-200">
             <GithubIcon className="w-3.5 h-3.5 fill-current" />
-            <span className="font-mono text-[10px] tracking-wider">Source — GitHub</span>
+            <span className="font-mono text-[10px] tracking-wider">Source on GitHub</span>
           </div>
         </div>
       </a>

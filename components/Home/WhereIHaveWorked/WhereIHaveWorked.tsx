@@ -5,7 +5,7 @@ const workExperiences = [
   {
     title: "AI Research Engineer",
     company: "Leoforce",
-    date: "Oct 2025 — Present",
+    date: "Oct 2025 to Present",
     link: null,
     tasks: [
       { text: "Shipped hybrid search RAG agentic system end-to-end from ideation to production deployment at billion-record scale.", keywords: ["hybrid search", "RAG", "agentic system", "billion-record scale"] },
@@ -20,10 +20,10 @@ const workExperiences = [
   {
     title: "AI Engineer",
     company: "ANZ Operations and Technology",
-    date: "Jun 2023 — Sep 2025",
+    date: "Jun 2023 to Sep 2025",
     link: "https://www.anz.com.au/",
     tasks: [
-      { text: "Architected and deployed KnowHow Assist RAG Application — enterprise-scale knowledge management system processing 60k+ documents using Google Cloud Vertex AI.", keywords: ["RAG Application", "Google Cloud Vertex AI"] },
+      { text: "Architected and deployed KnowHow Assist RAG Application, an enterprise-scale knowledge management system processing 60k+ documents using Google Cloud Vertex AI.", keywords: ["RAG Application", "Google Cloud Vertex AI"] },
       { text: "Built complete ML pipeline with document ingestion, multi-modal embeddings, and vector search achieving 200ms query response time.", keywords: ["multi-modal embeddings", "vector search", "200ms query response"] },
       { text: "Developed full-stack RAG solution with React.js/TypeScript frontend and FastAPI backend, implementing real-time streaming chat interface.", keywords: ["React.js/TypeScript", "FastAPI", "real-time streaming", "chat interface"] },
       { text: "Applied deep learning techniques for document analysis, achieving 95% accuracy in automated data extraction.", keywords: ["document analysis", "95% accuracy", "automated data extraction"] },
@@ -33,7 +33,7 @@ const workExperiences = [
   {
     title: "Data Engineer Intern",
     company: "BAHMNI Open Source EMR",
-    date: "Jun 2022 — Nov 2022",
+    date: "Jun 2022 to Nov 2022",
     link: null,
     tasks: [
       { text: "Enhanced layoutLM deep learning model with FUNSD dataset and achieved 80% accuracy in document understanding.", keywords: ["layoutLM", "FUNSD dataset", "80% accuracy"] },
@@ -45,7 +45,7 @@ const workExperiences = [
   {
     title: "ML & Big Data Analytics Intern",
     company: "ThoughtWorks",
-    date: "Dec 2021 — May 2022",
+    date: "Dec 2021 to May 2022",
     link: null,
     tasks: [
       { text: "Extracted medical data from documents using OCR with docTR deep learning model for healthcare data processing.", keywords: ["medical data", "OCR", "docTR"] },

@@ -49,7 +49,7 @@ const projects = [
     featured: false,
   },
   {
-    category: "MTech Thesis — IIT Bombay",
+    category: "MTech Thesis, IIT Bombay",
     title: "Neural Network SCF Prediction",
     description:
       "Implemented efficient algorithm in ANSYS-APDL achieving 90% reduction in time complexity. Trained deep learning models with Bayesian Optimization for material property analysis using Sobol sampling and neural networks.",
@@ -72,7 +72,7 @@ const projects = [
   },
   {
     category: "Data Engineering",
-    title: "YPredict — Real-time Analytics",
+    title: "YPredict: Real-time Analytics",
     description:
       "Scalable real-time data pipeline using Confluent Kafka for streaming 50,000+ daily transactions. Implemented parallel consumer processes achieving 99.9% uptime with sub-200ms processing speeds.",
     tech: ["Confluent Kafka", "Python Flask", "Power BI", "MySQL"],
@@ -103,7 +103,7 @@ export default function SomethingIveBuilt() {
         <div className="flex-1 h-px bg-AAborder max-w-xs"></div>
       </div>
 
-      {/* Featured Projects — large cards with cover image */}
+      {/* Featured Projects - large cards with cover image */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-24 max-w-6xl mx-auto w-full">
         {featured.map((project, i) => (
           <div
@@ -150,7 +150,7 @@ export default function SomethingIveBuilt() {
         ))}
       </div>
 
-      {/* Other Projects — compact grid with thumbnails */}
+      {/* Other Projects - compact grid with thumbnails */}
       <div data-aos="fade-up" className="max-w-6xl mx-auto w-full">
         <p className="text-AAmuted font-mono text-xs tracking-widest uppercase mb-8 text-center">
           Other notable work

@@ -1,5 +1,5 @@
 /**
- * Giscus comments — GitHub Discussions-backed.
+ * Giscus comments - GitHub Discussions-backed.
  *
  * Setup checklist (one-time, ~3 minutes):
  *   1. Make your repo public (or use a separate public repo for discussions).
@@ -17,7 +17,7 @@ import { useTheme } from "../Theme/ThemeProvider";
 import { giscusConfig } from "../../utils/site-data";
 
 type Props = {
-  /** Optional mapping key — defaults to "pathname". Use "specific" + `term` to pin a thread. */
+  /** Optional mapping key - defaults to "pathname". Use "specific" + `term` to pin a thread. */
   mapping?: "pathname" | "url" | "title" | "og:title" | "specific";
   term?: string;
 };
@@ -31,14 +31,14 @@ export default function Comments({ mapping = "pathname", term }: Props) {
   const ref = useRef<HTMLDivElement>(null);
   const { theme } = useTheme();
 
-  // Initial mount — inject the giscus script
+  // Initial mount - inject the giscus script
   useEffect(() => {
     if (!ref.current) return;
     if (!giscusConfig.repo || !giscusConfig.repoId || !giscusConfig.categoryId) {
       return; // not configured yet
     }
 
-    // Read the real, paint-time theme from <html> — the React `theme` state
+    // Read the real, paint-time theme from <html> - the React `theme` state
     // hasn't hydrated from localStorage yet on first mount, so trusting it
     // would inject the iframe with the wrong palette and only flip it after
     // a postMessage round-trip.
@@ -69,7 +69,7 @@ export default function Comments({ mapping = "pathname", term }: Props) {
     script.setAttribute("data-loading", "lazy");
 
     ref.current.appendChild(script);
-    // We intentionally don't depend on `theme` here — theme changes are sent
+    // We intentionally don't depend on `theme` here - theme changes are sent
     // via postMessage below so we don't reload the entire iframe.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mapping, term]);

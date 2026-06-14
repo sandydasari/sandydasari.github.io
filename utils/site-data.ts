@@ -43,12 +43,12 @@ export const experience: ExperienceItem[] = [
   {
     role: "AI Research Engineer",
     company: "Leoforce",
-    date: "Oct 2025 — Present",
+    date: "Oct 2025 to Present",
     link: null,
     bullets: [
       "Shipped hybrid search RAG agentic system end-to-end at billion-record scale.",
-      "Architected hybrid search (BM25 + HNSW dense retrieval) across 1.6B+ records with RRF fusion — 40% precision lift.",
-      "Designed RAG eval pipeline with DeepEval — faithfulness, contextual precision/recall, RAGAS.",
+      "Architected hybrid search (BM25 + HNSW dense retrieval) across 1.6B+ records with RRF fusion: 40% precision lift.",
+      "Designed RAG eval pipeline with DeepEval: faithfulness, contextual precision/recall, RAGAS.",
       "Built multi-agent systems on LangGraph + LiteLLM with Langfuse + OpenTelemetry tracing.",
       "Led OpenSearch 1.3 → 3.0 migration with FAISS/Lucene k-NN search.",
       "Built FastAPI microservices handling 10k+ QPS with full observability.",
@@ -57,10 +57,10 @@ export const experience: ExperienceItem[] = [
   {
     role: "AI Engineer",
     company: "ANZ Operations and Technology",
-    date: "Jun 2023 — Sep 2025",
+    date: "Jun 2023 to Sep 2025",
     link: "https://www.anz.com.au/",
     bullets: [
-      "Architected KnowHow Assist RAG — 60k+ documents on Vertex AI, 200ms p95 query latency.",
+      "Architected KnowHow Assist RAG: 60k+ documents on Vertex AI, 200ms p95 query latency.",
       "Full-stack RAG with React/TS + FastAPI, real-time streaming chat.",
       "Document analysis pipelines at 95% extraction accuracy.",
       "Automation cutting business workload 10x; CI/CD on Jenkins + GitLab CI.",
@@ -69,22 +69,22 @@ export const experience: ExperienceItem[] = [
   {
     role: "Data Engineer Intern",
     company: "BAHMNI Open Source EMR",
-    date: "Jun 2022 — Nov 2022",
+    date: "Jun 2022 to Nov 2022",
     link: null,
     bullets: [
-      "Enhanced layoutLM with FUNSD — 80% document understanding accuracy.",
-      "Key entity recognition via SimpleDLM — F1 +14.4%.",
-      "Data pipelines and quality monitoring — 25% efficiency, 15% error reduction.",
+      "Enhanced layoutLM with FUNSD: 80% document understanding accuracy.",
+      "Key entity recognition via SimpleDLM: F1 +14.4%.",
+      "Data pipelines and quality monitoring: 25% efficiency, 15% error reduction.",
     ],
   },
   {
     role: "ML & Big Data Intern",
     company: "ThoughtWorks",
-    date: "Dec 2021 — May 2022",
+    date: "Dec 2021 to May 2022",
     link: null,
     bullets: [
       "Medical OCR with docTR; Label Studio integration for batch extraction.",
-      "Semi-supervised learning — 3-5% accuracy lift over supervised baseline.",
+      "Semi-supervised learning: 3-5% accuracy lift over supervised baseline.",
       "Clinical NER with spaCy + medCAT.",
     ],
   },
@@ -116,7 +116,7 @@ export const projects: ProjectItem[] = [
     category: "Enterprise AI",
     title: "KnowHow Assist RAG Platform",
     description:
-      "Enterprise-scale knowledge management system processing 60,000+ documents using Google Cloud Vertex AI. Built a complete ML pipeline with document ingestion, multi-modal embeddings, hybrid retrieval, and vector search — achieving 200ms p95 query response with streaming-token chat UI on top. Deployed across multiple business units for internal Q&A.",
+      "Enterprise-scale knowledge management system processing 60,000+ documents using Google Cloud Vertex AI. Built a complete ML pipeline with document ingestion, multi-modal embeddings, hybrid retrieval, and vector search: achieving 200ms p95 query response with streaming-token chat UI on top. Deployed across multiple business units for internal Q&A.",
     tech: ["RAG Architecture", "Vertex AI", "Vector Search", "FastAPI"],
     images: ["/img/rag.png"],
     featured: true,
@@ -148,7 +148,7 @@ export const projects: ProjectItem[] = [
     category: "AI Research",
     title: "Medical Document Analysis AI",
     description:
-      "Advanced medical data extraction using OCR with docTR deep learning model. Enhanced layoutLM with the FUNSD dataset and achieved 80% accuracy on key-value extraction. Implemented semi-supervised learning that lifted accuracy by 3–5% compared to fully supervised baselines on small labelled corpora.",
+      "Advanced medical data extraction using OCR with docTR deep learning model. Enhanced layoutLM with the FUNSD dataset and achieved 80% accuracy on key-value extraction. Implemented semi-supervised learning that lifted accuracy by 3-5% compared to fully supervised baselines on small labelled corpora.",
     tech: ["OCR", "docTR", "layoutLM", "Semi-supervised Learning"],
     images: ["/img/medical.png"],
     featured: false,
@@ -156,7 +156,7 @@ export const projects: ProjectItem[] = [
   {
     year: "2022",
     category: "Data Engineering",
-    title: "YPredict — Real-time Analytics",
+    title: "YPredict: Real-time Analytics",
     description:
       "Scalable real-time data pipeline using Confluent Kafka for streaming 50,000+ daily transactions. Implemented parallel consumer processes with backpressure, achieving 99.9% uptime and sub-200ms end-to-end processing, surfaced via Power BI dashboards.",
     tech: ["Confluent Kafka", "Python Flask", "Power BI", "MySQL"],
@@ -171,7 +171,7 @@ export const achievements: AchievementItem[] = [
   {
     year: "2023",
     label: "Hackathon Winner",
-    title: "ANZ Hackfest 2023 — The 7th Sense Team",
+    title: "ANZ Hackfest 2023: The 7th Sense Team",
     context:
       "Built a workable PoC chatbot that revolutionised how ANZ employees work with internal communication tools. Combined OpenAI APIs with GCP, Jira, and Confluence integrations to make internal docs queryable in natural language.",
     image: "/img/hackfest.jpg",

@@ -32,7 +32,7 @@ function Card({ className = "", children }: { className?: string; children: Reac
   return <div className={`border border-AAborder rounded-2xl bg-AAsurface/40 ${className}`}>{children}</div>;
 }
 
-/** Section wrapper — hairline divider + heading + index. */
+/** Section wrapper - hairline divider + heading + index. */
 function Section({
   title,
   no,
@@ -55,7 +55,7 @@ function Section({
   );
 }
 
-/** Awards — one at a time, navigate with arrows or swipe. */
+/** Awards - one at a time, navigate with arrows or swipe. */
 function AwardsCarousel() {
   const [index, setIndex] = useState(0);
   const total = achievements.length;
@@ -127,10 +127,10 @@ export default function Home({ posts }: Props) {
   return (
     <>
       <Head>
-        <title>{`${profile.name} — ${profile.role}`}</title>
+        <title>{`${profile.name}, ${profile.role}`}</title>
         <meta name="robots" content="follow, index" />
         <meta name="description" content={profile.bio} />
-        <meta property="og:title" content={`${profile.name} — ${profile.role}`} />
+        <meta property="og:title" content={`${profile.name}, ${profile.role}`} />
         <meta property="og:description" content={profile.bio} />
         <meta property="og:url" content="https://sandydasari.com" />
         <link rel="canonical" href="https://sandydasari.com" />
@@ -171,7 +171,7 @@ export default function Home({ posts }: Props) {
                 </span>
                 <p className="text-AAmuted text-[16px] sm:text-[17px] leading-relaxed max-w-lg mt-3">
                   I'm an AI Research Engineer at <span className="text-AAtext font-medium">Leoforce</span>, building
-                  {" "}<span className="text-AAtext font-medium">multi-agent systems</span> — the orchestration
+                  {" "}<span className="text-AAtext font-medium">multi-agent systems</span>, the orchestration
                   patterns, tool use, and routing that make agents actually work together. I stay close to what's new
                   in agents and write about what holds up. Before that, two years building RAG systems for
                   {" "}<span className="text-AAtext font-medium">60k documents</span> at
@@ -188,7 +188,7 @@ export default function Home({ posts }: Props) {
               <a href={profile.resume} target="_blank" rel="noreferrer" className="text-AAmuted hover:text-AAtext transition-colors">Résumé</a>
             </div>
 
-            {/* Stats — plain figures, divided, no boxes */}
+            {/* Stats - plain figures, divided, no boxes */}
             <div className="flex flex-wrap gap-x-10 gap-y-4 mt-12">
               {stats.map((s) => (
                 <div key={s.label}>
@@ -202,7 +202,7 @@ export default function Home({ posts }: Props) {
           {/* ===== Writing ===== */}
           <Section title="Writing" no="01" id="writing">
             <p className="text-AAtext text-[15px] leading-relaxed max-w-lg mb-7">
-              I write about AI agents — what works and what breaks. Failures, tricks, and whatever's new
+              I write about AI agents, what works and what breaks. Failures, tricks, and whatever's new
               that's actually worth knowing.
             </p>
             {latestPost ? (

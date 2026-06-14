@@ -26,7 +26,7 @@ export default function BAHMNI() {
             DL Internship <span className="text-AAsecondary">@ LayoutLM</span>
           </span>
           {/* Date */}
-          <span className="font-mono text-xs text-gray-500">June 2022 - November 2022</span>
+          <span className="font-mono text-xs text-gray-500">June 2022 to November 2022</span>
         </div>
         <div className="flex flex-col space-y-4 sm:text-sm text-xs">
             {/* Tasks Description 1 */}

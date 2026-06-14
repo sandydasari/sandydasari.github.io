@@ -17,7 +17,7 @@ export default function BlogIndex({ posts }: Props) {
   return (
     <>
       <Head>
-        <title>{`Writing — ${profile.name}`}</title>
+        <title>{`Writing, ${profile.name}`}</title>
         <meta name="description" content="Notes on AI engineering, agentic systems, RAG, and applied ML." />
       </Head>
 
@@ -25,7 +25,7 @@ export default function BlogIndex({ posts }: Props) {
         {/* Header */}
         <header className="sticky top-0 z-20 bg-AAprimary/80 backdrop-blur-md border-b border-AAborder">
           <div className="max-w-3xl mx-auto px-5 py-3.5 flex items-center justify-between">
-            <Link href="/" className="font-medium text-[14px] text-AAtext tracking-tight">{profile.name}</Link>
+            <Link href="/" className="font-medium text-[14px] text-AAtext tracking-tight uppercase">{profile.name}</Link>
             <nav className="flex items-center gap-1">
               <Link href="/" className="text-AAmuted hover:text-AAtext text-[13px] px-2.5 py-1 rounded-lg hover:bg-AAsurface transition-colors">Home</Link>
               <ThemeToggle />
@@ -41,12 +41,9 @@ export default function BlogIndex({ posts }: Props) {
               AI agents: what works and what breaks.
             </h1>
             <p className="text-AAmuted text-[15px] leading-relaxed max-w-lg mt-6">
-              Notes from building AI coding agents — the failures, the tricks that stuck, and whatever's
+              Notes from building AI coding agents, the failures, the tricks that stuck, and whatever's
               new in AI that's actually worth writing down.
             </p>
-            <div className="mt-8 max-w-lg">
-              <Subscribe />
-            </div>
           </section>
 
           {/* Posts */}
@@ -81,6 +78,11 @@ export default function BlogIndex({ posts }: Props) {
                 <p className="font-mono text-[12px] text-AAmuted py-5">No posts yet.</p>
               )}
             </div>
+          </section>
+
+          {/* Subscribe */}
+          <section className="mt-14 pt-10 border-t border-AAborder max-w-lg">
+            <Subscribe />
           </section>
 
           {/* Footer */}
