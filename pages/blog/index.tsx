@@ -81,7 +81,7 @@ export default function BlogIndex({ posts }: Props) {
           </section>
 
           {/* Subscribe */}
-          <section className="mt-14 pt-10 border-t border-AAborder max-w-lg">
+          <section className="mt-14 pt-10 border-t border-AAborder">
             <Subscribe />
           </section>
 
