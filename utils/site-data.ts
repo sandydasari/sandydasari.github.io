@@ -250,5 +250,5 @@ export const profile = {
  *   Formspree:   https://formspree.io/f/<id>
  */
 export const newsletter = {
-  action: "",
+  action: "https://buttondown.com/api/emails/embed-subscribe/sandydasari",
 };
