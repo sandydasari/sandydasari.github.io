@@ -21,13 +21,6 @@ function formatDate(d: string) {
 const featuredProjects = projects.filter((p) => p.featured);
 const otherProjects = projects.filter((p) => !p.featured);
 
-const stats = [
-  { value: "1.6B+", label: "records searched" },
-  { value: "60k+", label: "docs in RAG" },
-  { value: "200ms", label: "p95 latency" },
-  { value: "10k+", label: "QPS served" },
-];
-
 function Card({ className = "", children }: { className?: string; children: React.ReactNode }) {
   return <div className={`border border-AAborder rounded-2xl bg-AAsurface/40 ${className}`}>{children}</div>;
 }
@@ -186,16 +179,6 @@ export default function Home({ posts }: Props) {
               <a href={profile.github} target="_blank" rel="noreferrer" className="text-AAmuted hover:text-AAtext transition-colors">GitHub</a>
               <a href={profile.linkedin} target="_blank" rel="noreferrer" className="text-AAmuted hover:text-AAtext transition-colors">LinkedIn</a>
               <a href={profile.resume} target="_blank" rel="noreferrer" className="text-AAmuted hover:text-AAtext transition-colors">Résumé</a>
-            </div>
-
-            {/* Stats - plain figures, divided, no boxes */}
-            <div className="flex flex-wrap gap-x-10 gap-y-4 mt-12">
-              {stats.map((s) => (
-                <div key={s.label}>
-                  <div className="text-[20px] font-semibold text-AAtext tracking-tight tabular-nums">{s.value}</div>
-                  <div className="font-mono text-[10px] tracking-wider uppercase text-AAmuted mt-0.5">{s.label}</div>
-                </div>
-              ))}
             </div>
           </section>
 
